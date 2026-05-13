@@ -1,10 +1,12 @@
+html
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Shreyas Patel | Data Analyst</title>
-<meta name="description" content="Shreyas Patel | Data Analyst specializing in turning operational data into business decisions. SQL, Power BI, Excel, Salesforce." />
+<title>Shreyas Patel — Data Analyst</title>
+<meta name="description" content="Shreyas Patel — Data Analyst specializing in turning operational data into business decisions. SQL, Power BI, Excel, Salesforce." />
 
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -186,6 +188,12 @@ section { padding: 110px clamp(1.5rem, 5vw, 3rem); position: relative; z-index: 
   background: var(--surface);
   backdrop-filter: blur(20px);
   border: 1px solid var(--border);
+  border-radius: var(--radius);
+}
+.glass-strong {
+  background: var(--surface2);
+  backdrop-filter: blur(30px);
+  border: 1px solid var(--border2);
   border-radius: var(--radius);
 }
 
@@ -383,95 +391,262 @@ section { padding: 110px clamp(1.5rem, 5vw, 3rem); position: relative; z-index: 
 .exp-card-points li::before { content: '↗'; color: var(--gold); flex-shrink: 0; font-size: 0.75rem; margin-top: 2px; }
 
 /* ════════════════════════════════════════════
-   SKILLS & LAB (rest of layout stays the same)
+   SKILLS
 ════════════════════════════════════════════ */
-/* Keeping the rest of the original CSS to avoid overwhelming file size, just jumping to specific updates */
 #skills { background: var(--bg2); }
 
 .skills-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(270px, 1fr)); gap: 1.25rem; }
-.skill-card { padding: 2rem 2rem 1.75rem; border-radius: var(--radius); position: relative; overflow: hidden; background: var(--surface); border: 1px solid var(--border); transition: transform 0.3s, border-color 0.3s, box-shadow 0.3s; }
-.skill-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px; background: var(--bar-color, var(--accent)); transform: scaleX(0); transform-origin: left; transition: transform 0.4s ease; }
+
+.skill-card {
+  padding: 2rem 2rem 1.75rem;
+  border-radius: var(--radius); position: relative; overflow: hidden;
+  background: var(--surface); border: 1px solid var(--border);
+  cursor: default; transition: transform 0.3s, border-color 0.3s, box-shadow 0.3s;
+}
+.skill-card::before {
+  content: '';
+  position: absolute; top: 0; left: 0; right: 0; height: 2px;
+  background: var(--bar-color, var(--accent));
+  transform: scaleX(0); transform-origin: left;
+  transition: transform 0.4s ease;
+}
 .skill-card:hover { transform: translateY(-5px); border-color: var(--hover-border, var(--border2)); box-shadow: 0 20px 50px var(--hover-shadow, transparent); }
 .skill-card:hover::before { transform: scaleX(1); }
+
 .skill-icon { font-size: 2rem; margin-bottom: 1rem; }
 .skill-name { font-weight: 700; font-size: 1.05rem; margin-bottom: 0.5rem; color: var(--text); }
 .skill-desc { font-size: 0.85rem; color: var(--muted2); line-height: 1.65; margin-bottom: 1.25rem; }
-.skill-bar-track { height: 3px; background: rgba(255,255,255,0.06); border-radius: 2px; overflow: hidden; }
-.skill-bar-fill { height: 100%; border-radius: 2px; background: var(--bar-color, var(--accent)); width: 0; transition: width 1.2s cubic-bezier(.25,.46,.45,.94); }
-.skill-bar-fill.animated { width: var(--bar-width, 80%); }
-.skill-tags { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 1rem; }
-.skill-tag { font-size: 0.7rem; font-weight: 600; letter-spacing: 0.07em; padding: 3px 10px; border-radius: 100px; background: rgba(255,255,255,0.05); border: 1px solid var(--border); color: var(--muted2); }
 
+.skill-bar-track {
+  height: 3px; background: rgba(255,255,255,0.06); border-radius: 2px; overflow: hidden;
+}
+.skill-bar-fill {
+  height: 100%; border-radius: 2px;
+  background: var(--bar-color, var(--accent));
+  width: 0; transition: width 1.2s cubic-bezier(.25,.46,.45,.94);
+}
+.skill-bar-fill.animated { width: var(--bar-width, 80%); }
+
+.skill-tags { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 1rem; }
+.skill-tag {
+  font-size: 0.7rem; font-weight: 600; letter-spacing: 0.07em;
+  padding: 3px 10px; border-radius: 100px;
+  background: rgba(255,255,255,0.05); border: 1px solid var(--border);
+  color: var(--muted2);
+}
+
+/* ════════════════════════════════════════════
+   PORTFOLIO (existing work)
+════════════════════════════════════════════ */
 .portfolio-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(330px, 1fr)); gap: 1.5rem; }
-.project-card { border-radius: var(--radius); overflow: hidden; background: var(--surface); border: 1px solid var(--border); display: flex; flex-direction: column; transition: transform 0.35s, border-color 0.35s, box-shadow 0.35s; }
+
+.project-card {
+  border-radius: var(--radius); overflow: hidden;
+  background: var(--surface); border: 1px solid var(--border);
+  display: flex; flex-direction: column;
+  transition: transform 0.35s, border-color 0.35s, box-shadow 0.35s;
+  cursor: default;
+}
 .project-card:hover { transform: translateY(-6px); border-color: var(--card-border, var(--border2)); box-shadow: 0 24px 60px var(--card-shadow, transparent); }
-.project-header { height: 140px; display: flex; align-items: center; justify-content: center; font-size: 2.8rem; position: relative; overflow: hidden; }
+
+.project-header {
+  height: 140px; display: flex; align-items: center; justify-content: center;
+  font-size: 2.8rem; position: relative; overflow: hidden;
+}
 .ph-fraud     { background: linear-gradient(135deg, rgba(79,255,176,0.1), rgba(79,255,176,0.03)); }
 .ph-dash      { background: linear-gradient(135deg, rgba(183,158,255,0.1), rgba(183,158,255,0.03)); }
 .ph-sentiment { background: linear-gradient(135deg, rgba(244,196,105,0.1), rgba(244,196,105,0.03)); }
 .ph-inventory { background: linear-gradient(135deg, rgba(99,202,255,0.1), rgba(99,202,255,0.03)); }
-.project-status-badge { position: absolute; top: 14px; right: 14px; font-size: 0.65rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; padding: 4px 12px; border-radius: 100px; }
+
+.project-status-badge {
+  position: absolute; top: 14px; right: 14px;
+  font-size: 0.65rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase;
+  padding: 4px 12px; border-radius: 100px;
+}
 .badge-featured { background: rgba(79,255,176,0.15); color: var(--accent); border: 1px solid rgba(79,255,176,0.3); }
 .badge-progress { background: rgba(183,158,255,0.15); color: var(--lilac); border: 1px solid rgba(183,158,255,0.3); }
 .badge-concept  { background: rgba(244,196,105,0.15); color: var(--gold); border: 1px solid rgba(244,196,105,0.3); }
+
 .project-body { padding: 1.75rem 2rem 2rem; flex: 1; display: flex; flex-direction: column; }
 .project-title { font-weight: 700; font-size: 1.1rem; color: var(--text); margin-bottom: 0.6rem; }
 .project-desc { font-size: 0.875rem; color: var(--muted2); line-height: 1.7; flex: 1; }
 .project-tags { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 1.25rem; }
-.ptag { font-size: 0.7rem; font-weight: 600; letter-spacing: 0.06em; padding: 4px 11px; border-radius: 100px; background: rgba(255,255,255,0.05); border: 1px solid var(--border); color: var(--muted2); white-space: nowrap; }
+.ptag {
+  font-size: 0.7rem; font-weight: 600; letter-spacing: 0.06em;
+  padding: 4px 11px; border-radius: 100px;
+  background: rgba(255,255,255,0.05); border: 1px solid var(--border);
+  color: var(--muted2); white-space: nowrap;
+}
 
+/* ════════════════════════════════════════════
+   LEARNING LAB (Educational Projects)
+════════════════════════════════════════════ */
 #learning { background: var(--bg2); }
-.learning-intro { max-width: 680px; margin-bottom: 4rem; }
-.learning-intro p { color: var(--muted2); font-size: 1.05rem; font-weight: 300; line-height: 1.85; }
+
+.learning-intro {
+  max-width: 680px; margin-bottom: 4rem;
+}
+.learning-intro p {
+  color: var(--muted2); font-size: 1.05rem; font-weight: 300; line-height: 1.85;
+}
 .learning-intro p strong { color: var(--text); font-weight: 600; }
-.learning-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(340px, 1fr)); gap: 1.75rem; }
-.learn-card { border-radius: var(--radius); overflow: hidden; background: var(--surface); border: 1px solid var(--border); display: flex; flex-direction: column; transition: transform 0.35s, border-color 0.35s, box-shadow 0.35s; position: relative; }
-.learn-card:hover { transform: translateY(-7px); border-color: var(--lc-border, var(--border2)); box-shadow: 0 28px 70px var(--lc-shadow, transparent); }
-.learn-card-top { height: 150px; display: flex; align-items: center; justify-content: center; font-size: 3rem; position: relative; overflow: hidden; }
-.learn-badge-row { position: absolute; top: 14px; left: 14px; right: 14px; display: flex; justify-content: space-between; align-items: center; }
-.learn-edu-badge { font-size: 0.6rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; padding: 4px 11px; border-radius: 100px; background: rgba(79,255,176,0.12); color: var(--accent); border: 1px solid rgba(79,255,176,0.28); }
-.learn-tool-badge { font-size: 0.6rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; padding: 4px 11px; border-radius: 100px; color: var(--muted2); border: 1px solid var(--border2); background: rgba(255,255,255,0.04); }
+
+.learning-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+  gap: 1.75rem;
+}
+
+.learn-card {
+  border-radius: var(--radius); overflow: hidden;
+  background: var(--surface); border: 1px solid var(--border);
+  display: flex; flex-direction: column;
+  transition: transform 0.35s, border-color 0.35s, box-shadow 0.35s;
+  position: relative;
+}
+.learn-card:hover {
+  transform: translateY(-7px);
+  border-color: var(--lc-border, var(--border2));
+  box-shadow: 0 28px 70px var(--lc-shadow, transparent);
+}
+
+.learn-card-top {
+  height: 150px; display: flex; align-items: center; justify-content: center;
+  font-size: 3rem; position: relative; overflow: hidden;
+}
+
+.learn-badge-row {
+  position: absolute; top: 14px; left: 14px; right: 14px;
+  display: flex; justify-content: space-between; align-items: center;
+}
+.learn-edu-badge {
+  font-size: 0.6rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase;
+  padding: 4px 11px; border-radius: 100px;
+  background: rgba(79,255,176,0.12); color: var(--accent);
+  border: 1px solid rgba(79,255,176,0.28);
+}
+.learn-tool-badge {
+  font-size: 0.6rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase;
+  padding: 4px 11px; border-radius: 100px;
+  color: var(--muted2);
+  border: 1px solid var(--border2);
+  background: rgba(255,255,255,0.04);
+}
+
 .learn-body { padding: 1.75rem 2rem 1.5rem; flex: 1; display: flex; flex-direction: column; }
 .learn-title { font-weight: 700; font-size: 1.12rem; color: var(--text); margin-bottom: 0.55rem; }
 .learn-desc { font-size: 0.875rem; color: var(--muted2); line-height: 1.72; flex: 1; margin-bottom: 1.25rem; }
-.learn-what-i-used { font-size: 0.7rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); margin-bottom: 0.5rem; margin-top: 1rem; }
+
+.learn-what-i-used {
+  font-size: 0.7rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase;
+  color: var(--muted); margin-bottom: 0.5rem; margin-top: 1rem;
+}
 .learn-tags { display: flex; flex-wrap: wrap; gap: 6px; }
-.ltag { font-size: 0.7rem; font-weight: 600; letter-spacing: 0.06em; padding: 4px 11px; border-radius: 100px; background: rgba(255,255,255,0.05); border: 1px solid var(--border); color: var(--muted2); white-space: nowrap; }
-.learn-footer { padding: 1rem 2rem 1.5rem; border-top: 1px solid var(--border); display: flex; gap: 0.75rem; align-items: center; flex-wrap: wrap; }
-.learn-link { display: inline-flex; align-items: center; gap: 7px; font-size: 0.8rem; font-weight: 600; letter-spacing: 0.04em; text-decoration: none; border-radius: 100px; padding: 8px 16px; transition: background 0.25s, color 0.25s, transform 0.2s, box-shadow 0.25s; }
-.learn-link-github { border: 1px solid var(--border2); color: var(--muted2); background: rgba(255,255,255,0.03); }
-.learn-link-github:hover { color: var(--text); border-color: rgba(255,255,255,0.25); transform: translateY(-2px); }
-.learn-link-view { color: var(--accent); background: var(--accent-dim); border: 1px solid rgba(79,255,176,0.25); }
-.learn-link-view:hover { background: rgba(79,255,176,0.2); box-shadow: 0 4px 18px var(--accent-glow); transform: translateY(-2px); }
+.ltag {
+  font-size: 0.7rem; font-weight: 600; letter-spacing: 0.06em;
+  padding: 4px 11px; border-radius: 100px;
+  background: rgba(255,255,255,0.05); border: 1px solid var(--border);
+  color: var(--muted2); white-space: nowrap;
+}
+
+.learn-footer {
+  padding: 1rem 2rem 1.5rem;
+  border-top: 1px solid var(--border);
+  display: flex; gap: 0.75rem; align-items: center; flex-wrap: wrap;
+}
+
+.learn-link {
+  display: inline-flex; align-items: center; gap: 7px;
+  font-size: 0.8rem; font-weight: 600; letter-spacing: 0.04em;
+  text-decoration: none; border-radius: 100px;
+  padding: 8px 16px;
+  transition: background 0.25s, color 0.25s, transform 0.2s, box-shadow 0.25s;
+}
+.learn-link-github {
+  border: 1px solid var(--border2); color: var(--muted2);
+  background: rgba(255,255,255,0.03);
+}
+.learn-link-github:hover {
+  color: var(--text); border-color: rgba(255,255,255,0.25);
+  transform: translateY(-2px);
+}
+.learn-link-view {
+  color: var(--accent);
+  background: var(--accent-dim);
+  border: 1px solid rgba(79,255,176,0.25);
+}
+.learn-link-view:hover {
+  background: rgba(79,255,176,0.2);
+  box-shadow: 0 4px 18px var(--accent-glow);
+  transform: translateY(-2px);
+}
+
+/* color themes per card */
 .lc-sql   { --lc-border: rgba(79,255,176,0.3);  --lc-shadow: rgba(79,255,176,0.06);  background: linear-gradient(135deg, rgba(79,255,176,0.09), rgba(79,255,176,0.02)); }
 .lc-excel { --lc-border: rgba(244,196,105,0.3); --lc-shadow: rgba(244,196,105,0.06); background: linear-gradient(135deg, rgba(244,196,105,0.09), rgba(244,196,105,0.02)); }
 .lc-pbi   { --lc-border: rgba(183,158,255,0.3); --lc-shadow: rgba(183,158,255,0.06); background: linear-gradient(135deg, rgba(183,158,255,0.09), rgba(183,158,255,0.02)); }
 .lc-py    { --lc-border: rgba(99,202,255,0.3);  --lc-shadow: rgba(99,202,255,0.06);  background: linear-gradient(135deg, rgba(99,202,255,0.09), rgba(99,202,255,0.02)); }
 
+/* ════════════════════════════════════════════
+   EDUCATION & CERTS
+════════════════════════════════════════════ */
 #education { background: var(--bg); }
+
 .edu-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 1.5rem; }
-.edu-card { padding: 2rem 2.25rem; border-radius: var(--radius); background: var(--surface); border: 1px solid var(--border); transition: transform 0.3s, border-color 0.3s; }
+
+.edu-card {
+  padding: 2rem 2.25rem; border-radius: var(--radius);
+  background: var(--surface); border: 1px solid var(--border);
+  transition: transform 0.3s, border-color 0.3s;
+}
 .edu-card:hover { transform: translateY(-4px); border-color: var(--border2); }
 .edu-icon { font-size: 2rem; margin-bottom: 1.1rem; }
 .edu-degree { font-weight: 700; font-size: 1rem; color: var(--text); margin-bottom: 0.35rem; }
 .edu-field { color: var(--accent); font-size: 0.9rem; font-weight: 500; margin-bottom: 0.3rem; }
 .edu-institution { color: var(--muted2); font-size: 0.82rem; }
 .edu-date { color: var(--muted); font-size: 0.78rem; margin-top: 0.75rem; }
+
 .cert-card { border-left: 2px solid var(--gold); }
 .cert-card .edu-field { color: var(--gold); }
 
-.contact-inner { max-width: 720px; margin: 0 auto; text-align: center; }
-.contact-title { font-family: var(--font-head); font-size: clamp(2.2rem, 5vw, 3.8rem); font-weight: 900; line-height: 1.1; letter-spacing: -0.025em; margin-bottom: 1.25rem; }
+/* ════════════════════════════════════════════
+   CONTACT
+════════════════════════════════════════════ */
+.contact-inner {
+  max-width: 720px; margin: 0 auto; text-align: center;
+}
+.contact-title {
+  font-family: var(--font-head);
+  font-size: clamp(2.2rem, 5vw, 3.8rem);
+  font-weight: 900; line-height: 1.1; letter-spacing: -0.025em;
+  margin-bottom: 1.25rem;
+}
 .contact-title em { font-style: italic; color: var(--accent); }
 .contact-sub { color: var(--muted2); font-size: 1.05rem; font-weight: 300; line-height: 1.7; margin-bottom: 3rem; }
+
 .contact-cards { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; margin-bottom: 4rem; }
-.contact-card { display: flex; align-items: center; gap: 14px; padding: 1.1rem 2rem; border-radius: 100px; background: var(--surface); border: 1px solid var(--border); text-decoration: none; color: var(--text); font-weight: 500; font-size: 0.95rem; transition: border-color 0.25s, background 0.25s, transform 0.25s, box-shadow 0.25s; }
+.contact-card {
+  display: flex; align-items: center; gap: 14px;
+  padding: 1.1rem 2rem; border-radius: 100px;
+  background: var(--surface); border: 1px solid var(--border);
+  text-decoration: none; color: var(--text); font-weight: 500; font-size: 0.95rem;
+  transition: border-color 0.25s, background 0.25s, transform 0.25s, box-shadow 0.25s;
+}
 .contact-card:hover { border-color: var(--accent); color: var(--accent); transform: translateY(-3px); box-shadow: 0 8px 30px var(--accent-glow); }
 .contact-card svg { width: 18px; height: 18px; flex-shrink: 0; }
-footer { border-top: 1px solid var(--border); margin-top: 4rem; padding: 2rem clamp(1.5rem, 5vw, 3rem); display: flex; justify-content: space-between; align-items: center; position: relative; z-index: 1; flex-wrap: wrap; gap: 0.75rem; }
+
+footer {
+  border-top: 1px solid var(--border); margin-top: 4rem;
+  padding: 2rem clamp(1.5rem, 5vw, 3rem);
+  display: flex; justify-content: space-between; align-items: center;
+  position: relative; z-index: 1; flex-wrap: wrap; gap: 0.75rem;
+}
 .footer-copy { font-size: 0.82rem; color: var(--muted); }
 .footer-tag { font-size: 0.82rem; color: var(--accent); font-weight: 500; }
 
+/* ════════════════════════════════════════════
+   RESPONSIVE
+════════════════════════════════════════════ */
 @media (max-width: 900px) {
   .about-grid { grid-template-columns: 1fr; gap: 3rem; }
   .exp-grid { grid-template-columns: 1fr; }
@@ -490,12 +665,14 @@ footer { border-top: 1px solid var(--border); margin-top: 4rem; padding: 2rem cl
 </head>
 <body>
 
+<!-- AMBIENT GLOW -->
 <div class="ambient">
   <div class="ambient-blob amb-1"></div>
   <div class="ambient-blob amb-2"></div>
   <div class="ambient-blob amb-3"></div>
 </div>
 
+<!-- ═══════════ NAVIGATION ═══════════ -->
 <nav>
   <a href="#hero" class="nav-logo" aria-label="Insights by Shreyas">
   <svg width="210" height="36" viewBox="0 0 210 36" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
@@ -537,6 +714,7 @@ footer { border-top: 1px solid var(--border); margin-top: 4rem; padding: 2rem cl
   <a href="#contact" onclick="closeMobile()">Contact</a>
 </div>
 
+<!-- ═══════════ HERO ═══════════ -->
 <section id="hero">
   <div class="hero-inner">
     <div class="hero-badge reveal">
@@ -549,7 +727,7 @@ footer { border-top: 1px solid var(--border); margin-top: 4rem; padding: 2rem cl
     </h1>
 
     <p class="hero-sub reveal d2">
-      I combine over four years of technical support operations experience with data analytics to surface insights that reduce costs, prevent fraud, and drive overall team performance.
+      Bridging 4+ years of technical support operations with data analytics to surface insights that reduce costs, prevent fraud, and drive performance.
     </p>
 
     <div class="hero-actions reveal d3">
@@ -593,6 +771,7 @@ footer { border-top: 1px solid var(--border); margin-top: 4rem; padding: 2rem cl
   </div>
 </section>
 
+<!-- ═══════════ ABOUT ═══════════ -->
 <section id="about">
   <div class="inner">
     <p class="section-eyebrow reveal">Who I Am</p>
@@ -601,16 +780,16 @@ footer { border-top: 1px solid var(--border); margin-top: 4rem; padding: 2rem cl
     <div class="about-grid">
       <div class="about-text reveal">
         <p>
-          I am <strong>Shreyas Patel</strong>. I am a results-driven professional transitioning into data analytics after spending four years building operational expertise across technical support, store management, and financial operations. My background in <em>Computer Engineering</em> gives me a strong technical foundation, and I am now channeling that logic directly into data analysis.
+          I'm <strong>Shreyas Patel</strong>, a results-driven professional transitioning into data analytics after 4+ years building operational expertise across technical support, store management, and financial operations. My background in <em>Computer Engineering</em> gives me a strong foundation and now I'm channeling it into data.
         </p>
         <p>
-          At Concentrix, I manage over <strong>600 cases every month</strong>. To me, every single case is a valuable data point. I have designed troubleshooting frameworks that cut repeat escalations by <strong>25 to 30%</strong>, built resolution templates that improved First Contact Resolution, and maintained <strong>100% accuracy</strong> in highly sensitive financial transaction processing. This isn't just technical support. It is operational analytics in practice.
+          At Concentrix, I manage <strong>600+ cases monthly</strong> and every case is a data point. I designed troubleshooting frameworks that cut repeat escalations by <strong>25 to 30%</strong>, built resolution templates that improved First Contact Resolution, and maintained <strong>100% accuracy</strong> in sensitive financial transaction processing. That's not just support work, that's operational analytics in practice.
         </p>
         <p>
-          My career move into data analysis isn't a leap in the dark; it's a natural progression. I have been living in data all along: tracking key performance indicators, spotting fraud patterns, analyzing CSAT trends, and mentoring teams using insight-driven feedback loops.
+          My career move into data analysis isn't a leap in the dark. It's a natural progression. I've been living data all along: tracking KPIs, spotting fraud patterns, analyzing CSAT trends, and mentoring teams using insight-driven feedback loops.
         </p>
         <div class="about-highlight">
-          <strong>The Drive for Data:</strong> I realized that my strongest moments at work weren't solving individual tickets. They were the moments when I spotted a pattern across hundreds of tickets and ultimately changed the process. That is where data lives, and that is exactly where I want to be.
+          <strong>Why Data Analysis?</strong> I realized that my strongest moments at work weren't solving individual tickets. They were when I spotted a pattern across hundreds of them and changed the process. That's where data lives, and that's where I want to be.
         </div>
       </div>
 
@@ -633,7 +812,7 @@ footer { border-top: 1px solid var(--border); margin-top: 4rem; padding: 2rem cl
         <div class="sidebar-card">
           <div class="sidebar-card-icon">📜</div>
           <div class="sidebar-card-title">Latest Certification</div>
-          <div class="sidebar-card-text">IBM Data Fundamentals (April 2026)</div>
+          <div class="sidebar-card-text">IBM Data Fundamentals — April 2026</div>
         </div>
         <div class="sidebar-card">
           <div class="sidebar-card-icon">📬</div>
@@ -645,11 +824,13 @@ footer { border-top: 1px solid var(--border); margin-top: 4rem; padding: 2rem cl
   </div>
 </section>
 
+<!-- ═══════════ EXPERIENCE ═══════════ -->
 <section id="experience">
   <div class="inner">
     <p class="section-eyebrow reveal">Career History</p>
     <h2 class="section-title reveal">Experience</h2>
 
+    <!-- FEATURED: CONCENTRIX -->
     <div class="exp-featured reveal">
       <div class="exp-header">
         <div>
@@ -657,7 +838,7 @@ footer { border-top: 1px solid var(--border); margin-top: 4rem; padding: 2rem cl
           <div class="exp-title">Technical Support Analyst</div>
         </div>
         <div class="exp-meta">
-          <div class="exp-date">March 2025 to Present</div>
+          <div class="exp-date">March 2025 – Present</div>
           <div class="exp-location">Remote / Welland, ON</div>
         </div>
       </div>
@@ -670,62 +851,72 @@ footer { border-top: 1px solid var(--border); margin-top: 4rem; padding: 2rem cl
       <ul class="exp-bullets">
         <li>
           <span class="exp-bullet-icon">▸</span>
-          <span class="exp-bullet-text"><strong>High-Volume Case Management:</strong> Process 20 to 25 complex technical and financial cases daily, involving payment discrepancies, fraud detection, and software issues, building a deep familiarity with transactional data and anomaly patterns.</span>
+          <span class="exp-bullet-text"><strong>High-Volume Case Management:</strong> Process 20 to 25 complex technical and financial cases daily (600+ monthly) involving payment discrepancies, fraud detection, and hardware and software issues, building deep familiarity with transactional data and anomaly patterns.</span>
         </li>
         <li>
           <span class="exp-bullet-icon">▸</span>
-          <span class="exp-bullet-text"><strong>Process Optimization via Data:</strong> Designed and implemented standardized troubleshooting checklists and resolution templates, reducing repeat follow-up cases by <strong>25 to 30%</strong> and improving First Contact Resolution.</span>
+          <span class="exp-bullet-text"><strong>Process Optimization via Data:</strong> Designed and implemented standardized troubleshooting checklists and resolution templates, reducing repeat follow-up cases by <strong>25 to 30%</strong> and improving First Contact Resolution (FCR), driven entirely by case data analysis.</span>
         </li>
         <li>
           <span class="exp-bullet-icon">▸</span>
-          <span class="exp-bullet-text"><strong>Financial Integrity and Anomaly Detection:</strong> Process sensitive transactions with absolute accuracy. I apply pattern recognition and risk frameworks to flag payment anomalies, which directly transfers to data-driven analysis work.</span>
+          <span class="exp-bullet-text"><strong>Financial Integrity and Anomaly Detection:</strong> Process sensitive transactions with 100% accuracy, applying pattern recognition and risk frameworks to flag payment anomalies, directly transferable to data-driven analysis work.</span>
         </li>
         <li>
           <span class="exp-bullet-icon">▸</span>
-          <span class="exp-bullet-text"><strong>Cross-Functional Collaboration:</strong> Partner with Finance, IT, and Development teams to escalate and resolve recurring system bugs, successfully reducing overall escalation volume by <strong>15%</strong> through data-driven root cause identification.</span>
+          <span class="exp-bullet-text"><strong>Cross-Functional Collaboration:</strong> Partner with Finance, IT, and Development teams to escalate and resolve recurring system bugs, reducing overall escalation volume by <strong>15%</strong> through data-driven root cause identification.</span>
         </li>
         <li>
           <span class="exp-bullet-icon">▸</span>
-          <span class="exp-bullet-text"><strong>Performance Excellence:</strong> Consistently maintain a <strong>95%+ CSAT score</strong> while meeting all target KPIs and adhering strictly to service level agreements.</span>
+          <span class="exp-bullet-text"><strong>Performance Excellence:</strong> Consistently maintain a <strong>95%+ CSAT score</strong> while meeting all KPIs and adhering strictly to SLAs, tracked, measured, and reported using CRM dashboards and reporting tools.</span>
+        </li>
+        <li>
+          <span class="exp-bullet-icon">▸</span>
+          <span class="exp-bullet-text"><strong>Mentorship and Knowledge Transfer:</strong> Act as Subject Matter Expert (SME) for junior advisors, onboarding new hires and coaching teams on KPI achievement using structured performance data.</span>
         </li>
       </ul>
     </div>
 
+    <!-- OTHER ROLES -->
     <div class="exp-grid reveal d2">
       <div class="exp-card">
         <div class="exp-card-co">Tim Hortons</div>
         <div class="exp-card-title">Assistant Manager, Operations</div>
-        <div class="exp-card-date">Feb 2023 to Feb 2025 · Melfort, SK</div>
+        <div class="exp-card-date">Feb 2023 – Feb 2025 · Melfort, SK</div>
         <ul class="exp-card-points">
-          <li>Led a team of 10 to 12 employees and supervised daily operations to ensure consistent service quality.</li>
-          <li>Managed over $40K in monthly inventory and financial reconciliation with full vendor coordination.</li>
-          <li>Introduced production planning templates that successfully reduced food waste by 10%.</li>
-          <li>Implemented a customer feedback tracking system to sustain a 98% overall satisfaction rate.</li>
+          <li>Led a team of 10 to 12 employees and supervised daily operations to ensure service quality consistency</li>
+          <li>Managed $40K+ in monthly inventory and financial reconciliation with full vendor coordination</li>
+          <li>Introduced production planning templates that reduced food waste by 10% and prep time significantly</li>
+          <li>Conducted cross-skill staff training, improving employee efficiency by 18%</li>
+          <li>Implemented a customer feedback tracking system, sustaining a 98% satisfaction rate</li>
         </ul>
       </div>
 
       <div class="exp-card">
         <div class="exp-card-co">Tiggy Delivery Corp.</div>
         <div class="exp-card-title">Store Manager and Key Holder</div>
-        <div class="exp-card-date">Jan 2022 to Jul 2022 · Toronto, ON</div>
+        <div class="exp-card-date">Jan 2022 – Jul 2022 · Toronto, ON</div>
         <ul class="exp-card-points">
-          <li>Optimized labor allocation for peak demand scheduling for over 40 employees.</li>
-          <li>Improved operational turnaround time by 15% through a complete audit and restructuring of roles.</li>
-          <li>Tracked real-time expenses and labor costs using Excel for weekly executive reporting.</li>
-          <li>Implemented waste reduction programs that lowered non-recyclable output by 20% in just four months.</li>
+          <li>Managed scheduling and supervision for 40+ employees, optimizing labor allocation for peak demand</li>
+          <li>Improved operational turnaround time by 15% through a full audit and restructuring of on-site roles</li>
+          <li>Tracked real-time expenses and labor costs using Excel and Google Sheets for weekly reports</li>
+          <li>Built a structured support response framework, reducing customer resolution time by 30%</li>
+          <li>Implemented waste reduction programs, lowering non-recyclable output by 20% in four months</li>
         </ul>
       </div>
     </div>
   </div>
 </section>
 
+<!-- ═══════════ SKILLS ═══════════ -->
 <section id="skills">
   <div class="inner">
     <p class="section-eyebrow reveal">Technical Toolkit</p>
     <h2 class="section-title reveal">Core Skills</h2>
 
     <div class="skills-grid">
-      <div class="skill-card reveal" style="--bar-color: #4fffb0; --hover-border: rgba(79,255,176,0.35); --hover-shadow: rgba(79,255,176,0.08); --bar-width: 85%;">
+
+      <div class="skill-card reveal"
+           style="--bar-color: #4fffb0; --hover-border: rgba(79,255,176,0.35); --hover-shadow: rgba(79,255,176,0.08); --bar-width: 85%;">
         <div class="skill-icon">🗄️</div>
         <div class="skill-name">SQL / MySQL</div>
         <div class="skill-desc">Database querying, complex joins, aggregation functions, and data extraction for business reporting and analysis.</div>
@@ -734,77 +925,92 @@ footer { border-top: 1px solid var(--border); margin-top: 4rem; padding: 2rem cl
           <span class="skill-tag">SELECT / JOINs</span>
           <span class="skill-tag">Aggregation</span>
           <span class="skill-tag">Subqueries</span>
-          <span class="skill-tag">MySQL</span>
+          <span class="skill-tag">MySQL Workbench</span>
         </div>
       </div>
 
-      <div class="skill-card reveal d1" style="--bar-color: #b79eff; --hover-border: rgba(183,158,255,0.35); --hover-shadow: rgba(183,158,255,0.08); --bar-width: 80%;">
+      <div class="skill-card reveal d1"
+           style="--bar-color: #b79eff; --hover-border: rgba(183,158,255,0.35); --hover-shadow: rgba(183,158,255,0.08); --bar-width: 80%;">
         <div class="skill-icon">📊</div>
         <div class="skill-name">Power BI</div>
-        <div class="skill-desc">Interactive dashboards, KPI tracking, DAX formulas, and data modeling for operational intelligence and executive reporting.</div>
+        <div class="skill-desc">Interactive dashboards, KPI tracking, DAX formulas, and data modeling for operational intelligence and executive-level reporting.</div>
         <div class="skill-bar-track"><div class="skill-bar-fill" data-width="80%"></div></div>
         <div class="skill-tags">
           <span class="skill-tag">DAX</span>
           <span class="skill-tag">Data Modeling</span>
           <span class="skill-tag">KPI Design</span>
+          <span class="skill-tag">Report Publishing</span>
         </div>
       </div>
 
-      <div class="skill-card reveal d2" style="--bar-color: #f4c469; --hover-border: rgba(244,196,105,0.35); --hover-shadow: rgba(244,196,105,0.08); --bar-width: 90%;">
+      <div class="skill-card reveal d2"
+           style="--bar-color: #f4c469; --hover-border: rgba(244,196,105,0.35); --hover-shadow: rgba(244,196,105,0.08); --bar-width: 90%;">
         <div class="skill-icon">📈</div>
         <div class="skill-name">Excel (Advanced)</div>
-        <div class="skill-desc">Pivot Tables, VLOOKUPs, XLOOKUP, and financial modeling for high-accuracy data analysis and reporting workflows.</div>
+        <div class="skill-desc">Pivot Tables, VLOOKUPs, XLOOKUP, Macros, and financial modeling for high-accuracy data analysis and reporting workflows.</div>
         <div class="skill-bar-track"><div class="skill-bar-fill" data-width="90%"></div></div>
         <div class="skill-tags">
           <span class="skill-tag">Pivot Tables</span>
-          <span class="skill-tag">XLOOKUP</span>
+          <span class="skill-tag">VLOOKUP / XLOOKUP</span>
+          <span class="skill-tag">Macros / VBA</span>
           <span class="skill-tag">Conditional Formatting</span>
         </div>
       </div>
 
-      <div class="skill-card reveal d3" style="--bar-color: #63caff; --hover-border: rgba(99,202,255,0.35); --hover-shadow: rgba(99,202,255,0.08); --bar-width: 82%;">
+      <div class="skill-card reveal d3"
+           style="--bar-color: #63caff; --hover-border: rgba(99,202,255,0.35); --hover-shadow: rgba(99,202,255,0.08); --bar-width: 82%;">
         <div class="skill-icon">🔗</div>
         <div class="skill-name">Salesforce / CRM</div>
-        <div class="skill-desc">CRM workflow management, ticket lifecycle tracking, and cross-team escalation pipeline optimization.</div>
+        <div class="skill-desc">CRM workflow management, ticket lifecycle tracking, and cross-team escalation pipeline optimization using JIRA and HubSpot.</div>
         <div class="skill-bar-track"><div class="skill-bar-fill" data-width="82%"></div></div>
         <div class="skill-tags">
           <span class="skill-tag">Salesforce</span>
+          <span class="skill-tag">JIRA</span>
+          <span class="skill-tag">HubSpot</span>
           <span class="skill-tag">Ticket Management</span>
         </div>
       </div>
 
-      <div class="skill-card reveal" style="--bar-color: #ff9f7f; --hover-border: rgba(255,159,127,0.35); --hover-shadow: rgba(255,159,127,0.08); --bar-width: 25%;">
+      <div class="skill-card reveal"
+           style="--bar-color: #ff9f7f; --hover-border: rgba(255,159,127,0.35); --hover-shadow: rgba(255,159,127,0.08); --bar-width: 25%;">
         <div class="skill-icon">🐍</div>
-        <div class="skill-name">Python <span style="font-size:0.75rem; color:var(--muted2); font-weight:400;">(Beginner)</span></div>
-        <div class="skill-desc">Exploring Python for simple data manipulation. Currently learning the basics of reading CSV files and doing basic math with Pandas.</div>
+        <div class="skill-name">Python <span style="font-size:0.75rem; color:var(--muted2); font-weight:400;">(Just Getting Started)</span></div>
+        <div class="skill-desc">Exploring Python for data analysis. Currently learning the basics of Pandas and NumPy. Early days, but actively building this skill with hands-on practice every week.</div>
         <div class="skill-bar-track"><div class="skill-bar-fill" data-width="25%"></div></div>
         <div class="skill-tags">
           <span class="skill-tag">Beginner</span>
-          <span class="skill-tag">Pandas</span>
-          <span class="skill-tag">Actively Learning</span>
+          <span class="skill-tag">Pandas (learning)</span>
+          <span class="skill-tag">NumPy (learning)</span>
+          <span class="skill-tag">Actively Studying</span>
         </div>
       </div>
 
-      <div class="skill-card reveal d1" style="--bar-color: #4fffb0; --hover-border: rgba(79,255,176,0.35); --hover-shadow: rgba(79,255,176,0.08); --bar-width: 88%;">
+      <div class="skill-card reveal d1"
+           style="--bar-color: #4fffb0; --hover-border: rgba(79,255,176,0.35); --hover-shadow: rgba(79,255,176,0.08); --bar-width: 88%;">
         <div class="skill-icon">🛡️</div>
         <div class="skill-name">Risk and Pattern Analysis</div>
-        <div class="skill-desc">Payment discrepancy investigation, anomaly detection, and real-time risk identification in high-volume environments.</div>
+        <div class="skill-desc">Payment discrepancy investigation, anomaly detection, regulatory compliance, and real-time risk identification in high-volume financial environments.</div>
         <div class="skill-bar-track"><div class="skill-bar-fill" data-width="88%"></div></div>
         <div class="skill-tags">
           <span class="skill-tag">Pattern Recognition</span>
+          <span class="skill-tag">Risk Mitigation</span>
+          <span class="skill-tag">Compliance</span>
           <span class="skill-tag">Anomaly Detection</span>
         </div>
       </div>
+
     </div>
   </div>
 </section>
 
+<!-- ═══════════ PORTFOLIO ═══════════ -->
 <section id="portfolio">
   <div class="inner">
     <p class="section-eyebrow reveal">Work and Projects</p>
     <h2 class="section-title reveal">Portfolio</h2>
 
     <div class="portfolio-grid">
+
       <div class="project-card reveal" style="--card-border: rgba(79,255,176,0.3); --card-shadow: rgba(79,255,176,0.06);">
         <div class="project-header ph-fraud">
           <span class="project-status-badge badge-featured">Featured</span>
@@ -812,9 +1018,10 @@ footer { border-top: 1px solid var(--border); margin-top: 4rem; padding: 2rem cl
         </div>
         <div class="project-body">
           <div class="project-title">Payment Anomaly Investigation Framework</div>
-          <div class="project-desc">I developed this SQL-powered framework based on my experience at Concentrix to surface payment discrepancies and flag high-risk transactions. It uses historical risk signatures to pattern-match against incoming transactions, which reduces false positives in review queues.</div>
+          <div class="project-desc">Built from real case experience at Concentrix, this SQL-powered framework surfaces payment discrepancies and flags high-risk transactions. Uses historical risk signatures to pattern-match against incoming transactions, significantly reducing false positives in real-time review queues.</div>
           <div class="project-tags">
             <span class="ptag">SQL</span>
+            <span class="ptag">MySQL</span>
             <span class="ptag">Risk Analysis</span>
             <span class="ptag">Pattern Matching</span>
           </div>
@@ -828,11 +1035,13 @@ footer { border-top: 1px solid var(--border); margin-top: 4rem; padding: 2rem cl
         </div>
         <div class="project-body">
           <div class="project-title">Operational Performance Dashboard</div>
-          <div class="project-desc">A Power BI dashboard consolidating daily case volumes, CSAT scores, and escalation rates into a single operational view. It is designed for operations leadership to make quick data-driven staffing decisions.</div>
+          <div class="project-desc">A Power BI dashboard consolidating SLA adherence rates, daily case volumes, CSAT scores, and escalation rates into a single real-time operational view. Designed for operations leadership to make data-driven staffing and process decisions at a glance.</div>
           <div class="project-tags">
             <span class="ptag">Power BI</span>
             <span class="ptag">DAX</span>
             <span class="ptag">KPI Design</span>
+            <span class="ptag">Data Modeling</span>
+            <span class="ptag">SLA Tracking</span>
           </div>
         </div>
       </div>
@@ -844,31 +1053,53 @@ footer { border-top: 1px solid var(--border); margin-top: 4rem; padding: 2rem cl
         </div>
         <div class="project-body">
           <div class="project-title">Customer Sentiment Classifier</div>
-          <div class="project-desc">An Excel-based sentiment classifier that processes CSAT feedback. It maps recurring complaint themes to inform targeted process improvements and agent coaching outcomes.</div>
+          <div class="project-desc">An Excel-based sentiment classifier that processes CSAT feedback and open-text response fields. Maps recurring complaint themes and satisfaction drivers to inform targeted process improvements, training priorities, and agent coaching outcomes.</div>
           <div class="project-tags">
             <span class="ptag">Excel</span>
             <span class="ptag">Pivot Tables</span>
+            <span class="ptag">Sentiment Analysis</span>
             <span class="ptag">CSAT Analysis</span>
+            <span class="ptag">Text Classification</span>
           </div>
         </div>
       </div>
+
+      <div class="project-card reveal d3" style="--card-border: rgba(99,202,255,0.3); --card-shadow: rgba(99,202,255,0.06);">
+        <div class="project-header ph-inventory" style="background: linear-gradient(135deg, rgba(99,202,255,0.1), rgba(99,202,255,0.03));">
+          <span class="project-status-badge badge-concept">Concept</span>
+          📦
+        </div>
+        <div class="project-body">
+          <div class="project-title">Inventory Cost Reduction Model</div>
+          <div class="project-desc">Inspired by managing $40K+ in monthly inventory at Tim Hortons, this data model identifies wastage trends, forecasts demand, and optimizes vendor order quantities. Built in Excel with advanced pivot logic and variance reporting to help reduce food waste and overstock.</div>
+          <div class="project-tags">
+            <span class="ptag">Excel</span>
+            <span class="ptag">Forecasting</span>
+            <span class="ptag">Cost Analysis</span>
+            <span class="ptag">Inventory Management</span>
+          </div>
+        </div>
+      </div>
+
     </div>
   </div>
 </section>
 
+<!-- ═══════════ LEARNING LAB ═══════════ -->
 <section id="learning">
   <div class="inner">
     <p class="section-eyebrow reveal">Educational Projects</p>
-    <h2 class="section-title reveal">The Analytics Sandbox: Foundations & Practice</h2>
+    <h2 class="section-title reveal">Learning Lab: My Analyst Journey</h2>
 
     <div class="learning-intro reveal">
       <p>
-        This section contains my <strong>hands-on practice projects</strong>. As I transition into data analytics, I believe in learning by doing. These repositories show my actual process of learning SQL, Excel, Power BI, and Python from the ground up. You can view the code and structure for each project directly in my GitHub environment.
+        These are <strong>hands-on educational projects</strong> I've been working through as I build my data analytics skills from the ground up. Nothing here is polished or client-facing. These are my actual study sessions turned into GitHub repos, where I try things, break things, and figure it out along the way. Each one is focused on a specific tool or concept I'm actively learning right now.
       </p>
     </div>
 
     <div class="learning-grid">
 
+      <!-- PROJECT 1: SQL -->
       <div class="learn-card reveal" style="--lc-border: rgba(79,255,176,0.3); --lc-shadow: rgba(79,255,176,0.06);">
         <div class="learn-card-top lc-sql">
           <div class="learn-badge-row">
@@ -878,9 +1109,9 @@ footer { border-top: 1px solid var(--border); margin-top: 4rem; padding: 2rem cl
           🗄️
         </div>
         <div class="learn-body">
-          <div class="learn-title">SQL Basics: Querying Retail Sales</div>
+          <div class="learn-title">SQL Basics: Querying a Retail Sales Dataset</div>
           <div class="learn-desc">
-            My first practical SQL project. I downloaded a public retail dataset and practiced writing foundational queries. This helped me lock in the concepts of JOINs, aggregations, and basic filtering on real-world numbers rather than textbook examples.
+            My first real SQL project. I grabbed a public retail dataset and started writing queries from scratch, things like finding top-selling products, calculating total revenue by month, and filtering out returned orders. Nothing fancy, but I learned a ton about JOINs and GROUP BY just by playing around with real data rather than textbook examples.
           </div>
           <div class="learn-what-i-used">What I used</div>
           <div class="learn-tags">
@@ -888,43 +1119,12 @@ footer { border-top: 1px solid var(--border); margin-top: 4rem; padding: 2rem cl
             <span class="ltag">SELECT</span>
             <span class="ltag">JOINs</span>
             <span class="ltag">GROUP BY</span>
+            <span class="ltag">WHERE / HAVING</span>
+            <span class="ltag">Aggregate Functions</span>
           </div>
         </div>
         <div class="learn-footer">
-          <a href="project-sql.html" class="learn-link learn-link-view">
-            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
-            View Code
-          </a>
-          <a href="https://github.com/shreyaspatel13" class="learn-link learn-link-github" target="_blank" rel="noopener noreferrer">
-            <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"/></svg>
-            GitHub
-          </a>
-        </div>
-      </div>
-
-      <div class="learn-card reveal d1" style="--lc-border: rgba(244,196,105,0.3); --lc-shadow: rgba(244,196,105,0.06);">
-        <div class="learn-card-top lc-excel">
-          <div class="learn-badge-row">
-            <span class="learn-edu-badge">Educational</span>
-            <span class="learn-tool-badge">Excel</span>
-          </div>
-          📊
-        </div>
-        <div class="learn-body">
-          <div class="learn-title">Excel: Data Cleaning Practice</div>
-          <div class="learn-desc">
-            To build my Excel skills, I took a messy customer dataset and cleaned it up entirely using Excel functions. I removed duplicates, standardized date formats, and used XLOOKUP to merge two tables together smoothly. 
-          </div>
-          <div class="learn-what-i-used">What I used</div>
-          <div class="learn-tags">
-            <span class="ltag">Excel</span>
-            <span class="ltag">XLOOKUP</span>
-            <span class="ltag">Data Cleaning</span>
-            <span class="ltag">Text Functions</span>
-          </div>
-        </div>
-        <div class="learn-footer">
-          <a href="project-excel.html" class="learn-link learn-link-view">
+          <a href="sql-retail-sales/index.html" class="learn-link learn-link-view" target="_blank" rel="noopener noreferrer">
             <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
             View Project
           </a>
@@ -935,6 +1135,43 @@ footer { border-top: 1px solid var(--border); margin-top: 4rem; padding: 2rem cl
         </div>
       </div>
 
+      <!-- PROJECT 2: EXCEL -->
+      <div class="learn-card reveal d1" style="--lc-border: rgba(244,196,105,0.3); --lc-shadow: rgba(244,196,105,0.06);">
+        <div class="learn-card-top lc-excel">
+          <div class="learn-badge-row">
+            <span class="learn-edu-badge">Educational</span>
+            <span class="learn-tool-badge">Excel</span>
+          </div>
+          📊
+        </div>
+        <div class="learn-body">
+          <div class="learn-title">Excel Dashboard: Monthly Sales Tracker</div>
+          <div class="learn-desc">
+            I wanted to see what it actually takes to build a proper dashboard in Excel from scratch, not just a table with some formatting. So I created a monthly sales tracker with Pivot Tables, XLOOKUP, and conditional formatting to highlight performance dips. This taught me how the pieces fit together and how to design something a manager could actually use.
+          </div>
+          <div class="learn-what-i-used">What I used</div>
+          <div class="learn-tags">
+            <span class="ltag">Excel</span>
+            <span class="ltag">Pivot Tables</span>
+            <span class="ltag">XLOOKUP</span>
+            <span class="ltag">Conditional Formatting</span>
+            <span class="ltag">Charts</span>
+            <span class="ltag">Named Ranges</span>
+          </div>
+        </div>
+        <div class="learn-footer">
+          <a href="excel-sales-tracker/index.html" class="learn-link learn-link-view" target="_blank" rel="noopener noreferrer">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+            View Project
+          </a>
+          <a href="https://github.com/shreyaspatel13" class="learn-link learn-link-github" target="_blank" rel="noopener noreferrer">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"/></svg>
+            GitHub
+          </a>
+        </div>
+      </div>
+
+      <!-- PROJECT 3: POWER BI -->
       <div class="learn-card reveal d2" style="--lc-border: rgba(183,158,255,0.3); --lc-shadow: rgba(183,158,255,0.06);">
         <div class="learn-card-top lc-pbi">
           <div class="learn-badge-row">
@@ -944,21 +1181,24 @@ footer { border-top: 1px solid var(--border); margin-top: 4rem; padding: 2rem cl
           📡
         </div>
         <div class="learn-body">
-          <div class="learn-title">Power BI: Beginner DAX Measures</div>
+          <div class="learn-title">Power BI: My First DAX Measures</div>
           <div class="learn-desc">
-            To understand how Power BI truly works behind the scenes, I created a mini-project focused solely on DAX. I built simple measures to calculate total revenue and count unique customers, ensuring I grasped the logic before trying to build complex dashboards.
+            DAX was the part of Power BI that confused me the most. So I made a project specifically dedicated to learning it. I took a sample HR dataset and built a report around headcount, attrition rate, and average tenure, writing each measure manually and documenting what I got wrong before I got it right. The notes in the GitHub repo are the most honest thing I've ever written.
           </div>
           <div class="learn-what-i-used">What I used</div>
           <div class="learn-tags">
             <span class="ltag">Power BI Desktop</span>
             <span class="ltag">DAX</span>
+            <span class="ltag">CALCULATE</span>
+            <span class="ltag">SUMX</span>
             <span class="ltag">Data Modeling</span>
+            <span class="ltag">Relationships</span>
           </div>
         </div>
         <div class="learn-footer">
-          <a href="project-powerbi.html" class="learn-link learn-link-view">
+          <a href="powerbi-dax-basics/index.html" class="learn-link learn-link-view" target="_blank" rel="noopener noreferrer">
             <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
-            View Notes
+            View Project
           </a>
           <a href="https://github.com/shreyaspatel13" class="learn-link learn-link-github" target="_blank" rel="noopener noreferrer">
             <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"/></svg>
@@ -967,6 +1207,7 @@ footer { border-top: 1px solid var(--border); margin-top: 4rem; padding: 2rem cl
         </div>
       </div>
 
+      <!-- PROJECT 4: PYTHON -->
       <div class="learn-card reveal d3" style="--lc-border: rgba(99,202,255,0.3); --lc-shadow: rgba(99,202,255,0.06);">
         <div class="learn-card-top lc-py">
           <div class="learn-badge-row">
@@ -976,21 +1217,24 @@ footer { border-top: 1px solid var(--border); margin-top: 4rem; padding: 2rem cl
           🐍
         </div>
         <div class="learn-body">
-          <div class="learn-title">Python Basics: Opening Data Files</div>
+          <div class="learn-title">Python Basics: My First Data Exploration</div>
           <div class="learn-desc">
-            I am very much a beginner with Python, so I kept this incredibly simple. I wrote a script to load a CSV file using Pandas and print out the first five rows just to see how the syntax works. This is my absolute first step into coding with Python.
+            I'm very much a beginner with Python, and this project shows that honestly. I loaded a CSV file using Pandas, checked for missing values, printed some basic stats, and made a simple bar chart. That's it. But doing this myself, step by step, is how I'm actually learning, not by watching tutorials but by doing and breaking things and reading the error messages.
           </div>
           <div class="learn-what-i-used">What I used</div>
           <div class="learn-tags">
             <span class="ltag">Python</span>
             <span class="ltag">Pandas</span>
+            <span class="ltag">Matplotlib</span>
+            <span class="ltag">read_csv()</span>
+            <span class="ltag">describe()</span>
             <span class="ltag">Beginner Level</span>
           </div>
         </div>
         <div class="learn-footer">
-          <a href="project-python.html" class="learn-link learn-link-view">
+          <a href="python-first-steps/index.html" class="learn-link learn-link-view" target="_blank" rel="noopener noreferrer">
             <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
-            View Script
+            View Project
           </a>
           <a href="https://github.com/shreyaspatel13" class="learn-link learn-link-github" target="_blank" rel="noopener noreferrer">
             <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"/></svg>
@@ -1003,6 +1247,7 @@ footer { border-top: 1px solid var(--border); margin-top: 4rem; padding: 2rem cl
   </div>
 </section>
 
+<!-- ═══════════ EDUCATION ═══════════ -->
 <section id="education">
   <div class="inner">
     <p class="section-eyebrow reveal">Academic Background</p>
@@ -1029,13 +1274,14 @@ footer { border-top: 1px solid var(--border); margin-top: 4rem; padding: 2rem cl
         <div class="edu-icon">🏅</div>
         <div class="edu-degree">Data Fundamentals</div>
         <div class="edu-field">IBM Certified</div>
-        <div class="edu-institution">IBM Official Certification</div>
+        <div class="edu-institution">IBM · Official Certification</div>
         <div class="edu-date">Issued: April 2026</div>
       </div>
     </div>
   </div>
 </section>
 
+<!-- ═══════════ CONTACT ═══════════ -->
 <section id="contact">
   <div class="inner">
     <div class="contact-inner">
@@ -1044,7 +1290,7 @@ footer { border-top: 1px solid var(--border); margin-top: 4rem; padding: 2rem cl
         Let's build something<br><em>with data.</em>
       </h2>
       <p class="contact-sub reveal d1">
-        I am actively looking for data analyst roles where analytical thinking meets real operational impact. If you are building a team that values sharp data thinking and domain expertise, let's talk.
+        I'm actively looking for data analyst roles where analytical thinking meets real operational impact. If you're building a team that values sharp data thinking and domain expertise, let's talk.
       </p>
 
       <div class="contact-cards reveal d2">
@@ -1079,6 +1325,7 @@ footer { border-top: 1px solid var(--border); margin-top: 4rem; padding: 2rem cl
 </section>
 
 <script>
+// ─── SCROLL REVEAL ───
 const revealObserver = new IntersectionObserver((entries) => {
   entries.forEach(entry => {
     if (entry.isIntersecting) {
@@ -1107,12 +1354,14 @@ const barObserver = new IntersectionObserver((entries) => {
 }, { threshold: 0.3 });
 document.querySelectorAll('.skill-card').forEach(el => barObserver.observe(el));
 
+// ─── HERO IMMEDIATE REVEAL ───
 window.addEventListener('load', () => {
   document.querySelectorAll('#hero .reveal').forEach((el, i) => {
     setTimeout(() => el.classList.add('in'), i * 140 + 80);
   });
 });
 
+// ─── MOBILE MENU ───
 const hamburger = document.getElementById('hamburger');
 const mobileMenu = document.getElementById('mobileMenu');
 hamburger.addEventListener('click', () => {
@@ -1122,6 +1371,7 @@ function closeMobile() {
   mobileMenu.classList.remove('open');
 }
 
+// ─── NAV SCROLL STYLE ───
 window.addEventListener('scroll', () => {
   const nav = document.querySelector('nav');
   if (window.scrollY > 60) {
