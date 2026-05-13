@@ -1,0 +1,61 @@
+case_id,case_date,agent_id,case_type,handle_time_min,csat_rating,met_sla,resolution,region
+C-1001,2024-06-01,AG01,Payment Issue,12,5,Yes,First Contact,Ontario
+C-1002,2024-06-01,AG02,Fraud Case,22,4,Yes,Escalated,Alberta
+C-1003,2024-06-02,AG01,Tech Support,31,2,No,Escalated,BC
+C-1004,2024-06-02,AG03,Account Access,8,5,Yes,First Contact,Ontario
+C-1005,2024-06-03,AG02,Payment Issue,17,3,Yes,First Contact,Quebec
+C-1006,2024-06-03,AG01,Fraud Case,28,4,Yes,First Contact,Ontario
+C-1007,2024-06-04,AG03,Tech Support,14,5,Yes,First Contact,Alberta
+C-1008,2024-06-04,AG02,Payment Issue,9,5,Yes,First Contact,BC
+C-1009,2024-06-05,AG01,Account Access,6,5,Yes,First Contact,Ontario
+C-1010,2024-06-05,AG03,Fraud Case,35,1,No,Escalated,Quebec
+C-1011,2024-06-06,AG02,Payment Issue,19,4,Yes,First Contact,Alberta
+C-1012,2024-06-06,AG01,Tech Support,25,3,Yes,First Contact,Ontario
+C-1013,2024-06-07,AG03,Account Access,7,5,Yes,First Contact,BC
+C-1014,2024-06-07,AG02,Payment Issue,11,5,Yes,First Contact,Quebec
+C-1015,2024-06-08,AG01,Fraud Case,40,2,No,Escalated,Ontario
+C-1016,2024-06-08,AG03,Tech Support,18,4,Yes,First Contact,Alberta
+C-1017,2024-06-09,AG02,Payment Issue,13,5,Yes,First Contact,BC
+C-1018,2024-06-09,AG01,Account Access,5,5,Yes,First Contact,Ontario
+C-1019,2024-06-10,AG03,Fraud Case,29,3,Yes,First Contact,Quebec
+C-1020,2024-06-10,AG02,Payment Issue,16,4,Yes,First Contact,Alberta
+C-1021,2024-06-11,AG01,Tech Support,22,4,Yes,First Contact,Ontario
+C-1022,2024-06-11,AG03,Account Access,9,5,Yes,First Contact,BC
+C-1023,2024-06-12,AG02,Payment Issue,14,5,Yes,First Contact,Quebec
+C-1024,2024-06-12,AG01,Fraud Case,33,2,No,Escalated,Ontario
+C-1025,2024-06-13,AG03,Tech Support,20,4,Yes,First Contact,Alberta
+C-1026,2024-06-13,AG02,Payment Issue,10,5,Yes,First Contact,BC
+C-1027,2024-06-14,AG01,Account Access,7,5,Yes,First Contact,Ontario
+C-1028,2024-06-14,AG03,Fraud Case,26,3,Yes,First Contact,Quebec
+C-1029,2024-06-15,AG02,Payment Issue,18,4,Yes,First Contact,Alberta
+C-1030,2024-06-15,AG01,Tech Support,30,2,No,Escalated,Ontario
+C-1031,2024-06-16,AG03,Account Access,6,5,Yes,First Contact,BC
+C-1032,2024-06-16,AG02,Payment Issue,15,5,Yes,First Contact,Quebec
+C-1033,2024-06-17,AG01,Fraud Case,24,4,Yes,First Contact,Ontario
+C-1034,2024-06-17,AG03,Tech Support,19,3,Yes,First Contact,Alberta
+C-1035,2024-06-18,AG02,Payment Issue,12,5,Yes,First Contact,BC
+C-1036,2024-06-18,AG01,Account Access,8,5,Yes,First Contact,Ontario
+C-1037,2024-06-19,AG03,Fraud Case,38,1,No,Escalated,Quebec
+C-1038,2024-06-19,AG02,Payment Issue,11,4,Yes,First Contact,Alberta
+C-1039,2024-06-20,AG01,Tech Support,27,3,Yes,First Contact,Ontario
+C-1040,2024-06-20,AG03,Account Access,5,5,Yes,First Contact,BC
+C-1041,2024-06-21,AG02,Payment Issue,14,5,Yes,First Contact,Quebec
+C-1042,2024-06-21,AG01,Fraud Case,31,3,Yes,First Contact,Ontario
+C-1043,2024-06-22,AG03,Tech Support,23,4,Yes,First Contact,Alberta
+C-1044,2024-06-22,AG02,Payment Issue,9,5,Yes,First Contact,BC
+C-1045,2024-06-23,AG01,Account Access,6,5,Yes,First Contact,Ontario
+C-1046,2024-06-23,AG03,Fraud Case,29,2,Yes,First Contact,Quebec
+C-1047,2024-06-24,AG02,Payment Issue,17,4,Yes,First Contact,Alberta
+C-1048,2024-06-24,AG01,Tech Support,21,4,Yes,First Contact,Ontario
+C-1049,2024-06-25,AG03,Account Access,7,5,Yes,First Contact,BC
+C-1050,2024-06-25,AG02,Payment Issue,13,5,Yes,First Contact,Quebec
+C-1051,2024-06-26,AG01,Fraud Case,36,2,No,Escalated,Ontario
+C-1052,2024-06-26,AG03,Tech Support,16,4,Yes,First Contact,Alberta
+C-1053,2024-06-27,AG02,Payment Issue,10,5,Yes,First Contact,BC
+C-1054,2024-06-27,AG01,Account Access,8,5,Yes,First Contact,Ontario
+C-1055,2024-06-28,AG03,Fraud Case,27,3,Yes,First Contact,Quebec
+C-1056,2024-06-28,AG02,Payment Issue,12,4,Yes,First Contact,Alberta
+C-1057,2024-06-29,AG01,Tech Support,24,3,Yes,First Contact,Ontario
+C-1058,2024-06-29,AG03,Account Access,5,5,Yes,First Contact,BC
+C-1059,2024-06-30,AG02,Payment Issue,15,5,Yes,First Contact,Quebec
+C-1060,2024-06-30,AG01,Fraud Case,32,2,Yes,First Contact,Ontario

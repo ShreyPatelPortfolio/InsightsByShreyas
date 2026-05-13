@@ -1,0 +1,51 @@
+OrderID,ProductName,Category,OrderDate,SalePrice,CostPrice,Status,Region
+1001,Wool Blend Overcoat,Jackets,2022-01-03,152.00,85.00,Completed,Ontario
+1002,Running Pro Sneakers,Footwear,2022-01-05,80.00,42.00,Completed,Alberta
+1003,Cotton Oxford Shirt,Tops,2022-01-06,30.00,18.00,Completed,Ontario
+1004,Slim-Fit Chinos,Bottoms,2022-01-08,40.00,22.00,Returned,BC
+1005,Leather Tote Bag,Accessories,2022-01-10,100.00,40.00,Completed,Ontario
+1006,Floral Midi Dress,Dresses,2022-01-12,75.00,30.00,Completed,Quebec
+1007,Puffer Jacket,Jackets,2022-01-14,95.00,60.00,Completed,Alberta
+1008,Leather Chelsea Boots,Footwear,2022-01-15,130.00,70.00,Returned,BC
+1009,Linen Button-Down,Tops,2022-01-18,45.00,20.00,Completed,Ontario
+1010,Straight Leg Jeans,Bottoms,2022-01-20,60.00,28.00,Completed,Quebec
+1011,Wool Blend Overcoat,Jackets,2022-01-22,152.00,85.00,Completed,Ontario
+1012,Leather Belt,Accessories,2022-01-24,25.00,12.00,Completed,Alberta
+1013,Rain Resistant Anorak,Jackets,2022-01-25,70.00,45.00,Completed,BC
+1014,Graphic Tee,Tops,2022-01-26,22.00,10.00,Returned,Quebec
+1015,Wrap Dress,Dresses,2022-01-28,68.00,28.00,Completed,Ontario
+1016,Canvas Low-Top Trainers,Footwear,2022-02-01,50.00,25.00,Completed,Alberta
+1017,Merino Wool Sweater,Tops,2022-02-03,85.00,35.00,Completed,Ontario
+1018,Canvas Backpack,Accessories,2022-02-04,45.00,22.00,Completed,BC
+1019,Running Pro Sneakers,Footwear,2022-02-06,80.00,42.00,Returned,Quebec
+1020,Wool Blend Overcoat,Jackets,2022-02-08,148.00,85.00,Completed,Ontario
+1021,Wool Scarf,Accessories,2022-02-09,28.00,10.00,Completed,Alberta
+1022,Cotton Oxford Shirt,Tops,2022-02-10,30.00,18.00,Completed,Ontario
+1023,Straight Leg Jeans,Bottoms,2022-02-12,58.00,28.00,Completed,BC
+1024,Leather Chelsea Boots,Footwear,2022-02-14,125.00,70.00,Completed,Quebec
+1025,Puffer Jacket,Jackets,2022-02-15,90.00,60.00,Returned,Ontario
+1026,Floral Midi Dress,Dresses,2022-02-18,72.00,30.00,Completed,Alberta
+1027,Slim-Fit Chinos,Bottoms,2022-02-19,40.00,22.00,Completed,BC
+1028,Leather Tote Bag,Accessories,2022-02-20,98.00,40.00,Completed,Ontario
+1029,Rain Resistant Anorak,Jackets,2022-02-22,68.00,45.00,Completed,Quebec
+1030,Sunglasses,Accessories,2022-02-24,35.00,15.00,Returned,Alberta
+1031,Wool Blend Overcoat,Jackets,2022-03-01,155.00,85.00,Completed,Ontario
+1032,Running Pro Sneakers,Footwear,2022-03-02,82.00,42.00,Completed,BC
+1033,Cotton Oxford Shirt,Tops,2022-03-04,32.00,18.00,Completed,Alberta
+1034,Linen Button-Down,Tops,2022-03-05,47.00,20.00,Completed,Ontario
+1035,Slim-Fit Chinos,Bottoms,2022-03-06,42.00,22.00,Returned,Quebec
+1036,Leather Tote Bag,Accessories,2022-03-08,102.00,40.00,Completed,BC
+1037,Puffer Jacket,Jackets,2022-03-10,92.00,60.00,Completed,Ontario
+1038,Floral Midi Dress,Dresses,2022-03-11,74.00,30.00,Completed,Alberta
+1039,Leather Chelsea Boots,Footwear,2022-03-13,128.00,70.00,Completed,Quebec
+1040,Straight Leg Jeans,Bottoms,2022-03-15,62.00,28.00,Returned,BC
+1041,Leather Belt,Accessories,2022-03-16,26.00,12.00,Completed,Ontario
+1042,Merino Wool Sweater,Tops,2022-03-18,88.00,35.00,Completed,Alberta
+1043,Rain Resistant Anorak,Jackets,2022-03-19,72.00,45.00,Completed,Ontario
+1044,Graphic Tee,Tops,2022-03-20,24.00,10.00,Completed,BC
+1045,Wrap Dress,Dresses,2022-03-22,70.00,28.00,Returned,Quebec
+1046,Canvas Low-Top Trainers,Footwear,2022-03-25,52.00,25.00,Completed,Alberta
+1047,Wool Scarf,Accessories,2022-03-26,30.00,10.00,Completed,Ontario
+1048,Canvas Backpack,Accessories,2022-03-28,48.00,22.00,Completed,BC
+1049,Sunglasses,Accessories,2022-03-29,38.00,15.00,Completed,Quebec
+1050,Wool Blend Overcoat,Jackets,2022-03-30,150.00,85.00,Completed,Ontario
