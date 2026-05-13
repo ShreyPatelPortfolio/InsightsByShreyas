@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Python Basics: Data Exploration — Shreyas Patel</title>
+<meta name="description" content="Learning Lab: Python Basics and Pandas. By Shreyas Patel." />
+
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,700;0,800;0,900;1,700;1,800&display=swap" rel="stylesheet" />
+
+<style>
+:root {
+  --bg:         #07090f;
+  --bg2:        #0d1117;
+  --surface:    rgba(255,255,255,0.035);
+  --surface2:   rgba(255,255,255,0.065);
+  --border:     rgba(255,255,255,0.07);
+  --border2:    rgba(255,255,255,0.13);
+  
+  /* Python Theme Colors (Blue/Cyan) */
+  --accent:     #63caff;
+  --accent-dim: rgba(99,202,255,0.12);
+  --accent-glow:rgba(99,202,255,0.25);
+  
+  --text:       #dde4ee;
+  --muted:      #5c6a82;
+  --muted2:     #8696b0;
+  --font-head:  'Playfair Display', Georgia, serif;
+  --font-body:  'Outfit', system-ui, sans-serif;
+  --font-mono:  'Fira Code', 'Cascadia Code', 'Consolas', monospace;
+  --radius:     18px;
+  --radius-sm:  10px;
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  background: var(--bg); color: var(--text);
+  font-family: var(--font-body); font-size: 16px; line-height: 1.65; overflow-x: hidden;
+}
+body::after {
+  content: ''; position: fixed; inset: 0; z-index: 0; pointer-events: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='400'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='400' height='400' filter='url(%23n)' opacity='0.035'/%3E%3C/svg%3E");
+  background-size: 200px;
+}
+.ambient { position: fixed; inset: 0; z-index: -1; overflow: hidden; pointer-events: none; }
+.ambient-blob { position: absolute; border-radius: 50%; filter: blur(130px); opacity: 0.10; }
+.amb-1 { width:600px;height:600px; background:#63caff; top:-150px; right:-100px; }
+.amb-2 { width:500px;height:500px; background:#b79eff; bottom:-100px; left:-100px; }
+
+nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 200; height: 68px;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 0 clamp(1.5rem, 5vw, 3rem);
+  background: rgba(7,9,15,0.85); backdrop-filter: blur(28px) saturate(1.6);
+  border-bottom: 1px solid var(--border);
+}
+.nav-logo { font-family: var(--font-head); font-weight: 800; font-size: 1.1rem; color: var(--text); text-decoration: none; }
+.nav-logo span { color: #4fffb0; }
+.nav-back {
+  display: inline-flex; align-items: center; gap: 8px;
+  font-size: 0.82rem; font-weight: 600; color: var(--muted2); text-decoration: none;
+  border: 1px solid var(--border2); border-radius: 100px; padding: 8px 18px;
+  transition: color 0.25s, border-color 0.25s;
+}
+.nav-back:hover { color: var(--accent); border-color: rgba(99,202,255,0.3); }
+
+main { max-width: 860px; margin: 0 auto; padding: 110px clamp(1.5rem, 5vw, 2rem) 80px; position: relative; z-index: 1; }
+
+.breadcrumb { display: flex; align-items: center; gap: 8px; font-size: 0.78rem; color: var(--muted); margin-bottom: 2.5rem; }
+.breadcrumb a { color: var(--muted2); text-decoration: none; transition: color 0.2s; }
+.breadcrumb a:hover { color: var(--accent); }
+
+.proj-eyebrow {
+  display: inline-flex; align-items: center; gap: 10px;
+  font-size: 0.72rem; font-weight: 600; letter-spacing: 0.14em;
+  text-transform: uppercase; color: var(--accent); margin-bottom: 1rem;
+}
+.proj-eyebrow::before { content: ''; display: block; width: 28px; height: 1px; background: var(--accent); }
+.proj-title {
+  font-family: var(--font-head); font-size: clamp(2rem, 5vw, 3rem);
+  font-weight: 900; line-height: 1.1; letter-spacing: -0.02em; margin-bottom: 1.25rem;
+}
+.proj-desc { font-size: 1.05rem; color: var(--muted2); line-height: 1.8; font-weight: 300; max-width: 680px; margin-bottom: 2rem; }
+
+.tag-row { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 3rem; }
+.tag {
+  font-size: 0.72rem; font-weight: 600; letter-spacing: 0.06em;
+  padding: 5px 14px; border-radius: 100px;
+  background: var(--accent-dim); border: 1px solid rgba(99,202,255,0.25); color: var(--accent);
+}
+.divider { border: none; border-top: 1px solid var(--border); margin: 3rem 0; }
+.section-label { font-size: 0.72rem; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase; color: var(--muted); margin-bottom: 1.25rem; }
+
+.context-box {
+  background: var(--surface); border: 1px solid var(--border);
+  border-left: 3px solid var(--accent);
+  border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+  padding: 1.5rem 1.75rem; margin-bottom: 2.5rem;
+  font-size: 0.95rem; color: var(--muted2); line-height: 1.8;
+}
+.context-box strong { color: var(--text); }
+
+/* Python Code Blocks */
+.formula-block {
+  background: #0a0e18; border: 1px solid var(--border2);
+  border-radius: var(--radius-sm); margin: 2rem 0; overflow: hidden;
+}
+.formula-header {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 0.75rem 1.25rem; background: rgba(255,255,255,0.03);
+  border-bottom: 1px solid var(--border);
+}
+.formula-lang { font-size: 0.7rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--accent); }
+.formula-label { font-size: 0.75rem; color: var(--muted); }
+.formula-body { padding: 1.5rem 1.25rem; }
+.formula-row { margin-bottom: 1.5rem; }
+.formula-row:last-child { margin-bottom: 0; }
+.formula-name { font-size: 0.75rem; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted2); margin-bottom: 0.4rem; }
+.formula-code {
+  font-family: var(--font-mono);
+  font-size: 0.875rem; line-height: 1.6; color: #c9d1e0;
+  background: rgba(255,255,255,0.03); padding: 0.85rem 1rem;
+  border-radius: 8px; border: 1px solid var(--border);
+  word-break: break-all;
+}
+.kw { color: #ff7b72; } /* Keywords like import */
+.fn { color: #d2a8ff; } /* Functions like print */
+.str { color: #a5d6ff; } /* Strings */
+.var { color: #79c0ff; } /* Variables */
+.formula-note { font-size: 0.8rem; color: var(--muted2); margin-top: 0.4rem; line-height: 1.6; }
+
+/* Terminal Mockup */
+.terminal-mock {
+  background: #0d1117; border: 1px solid var(--border2); border-radius: var(--radius);
+  overflow: hidden; margin: 2rem 0;
+}
+.term-topbar {
+  background: rgba(99,202,255,0.06); border-bottom: 1px solid var(--border);
+  padding: 0.75rem 1.5rem; display: flex; align-items: center; gap: 8px;
+}
+.term-dot { width: 10px; height: 10px; border-radius: 50%; }
+.dot-r { background: #ff5f56; }
+.dot-y { background: #ffbd2e; }
+.dot-g { background: #27c93f; }
+.term-title { font-family: var(--font-mono); font-size: 0.75rem; color: var(--muted2); margin-left: 10px; }
+.term-body {
+  padding: 1.5rem; font-family: var(--font-mono); font-size: 0.85rem;
+  line-height: 1.6; color: #e6edf3; overflow-x: auto;
+}
+.term-prompt { color: #27c93f; }
+.term-comment { color: #8b949e; }
+.term-output { color: #a5d6ff; }
+
+.lessons-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-top: 1.5rem; }
+.lesson-card { padding: 1.25rem 1.5rem; border-radius: var(--radius-sm); background: var(--surface); border: 1px solid var(--border); }
+.lesson-card-icon { font-size: 1.25rem; margin-bottom: 0.5rem; }
+.lesson-card-title { font-weight: 600; font-size: 0.9rem; color: var(--text); margin-bottom: 0.3rem; }
+.lesson-card-text { font-size: 0.82rem; color: var(--muted2); line-height: 1.6; }
+
+.proj-footer-nav { display: flex; gap: 1rem; flex-wrap: wrap; margin-top: 4rem; padding-top: 2rem; border-top: 1px solid var(--border); }
+.proj-footer-btn { display: inline-flex; align-items: center; gap: 9px; font-size: 0.85rem; font-weight: 600; text-decoration: none; padding: 12px 24px; border-radius: 100px; transition: background 0.25s, transform 0.2s, box-shadow 0.25s; }
+.btn-accent { background: var(--accent-dim); border: 1px solid rgba(99,202,255,0.3); color: var(--accent); }
+.btn-accent:hover { background: rgba(99,202,255,0.2); box-shadow: 0 4px 20px var(--accent-glow); transform: translateY(-2px); }
+.btn-ghost-sm { background: var(--surface); border: 1px solid var(--border2); color: var(--muted2); }
+.btn-ghost-sm:hover { color: var(--text); border-color: rgba(255,255,255,0.25); transform: translateY(-2px); }
+
+footer-bar { display: block; text-align: center; padding: 2rem; font-size: 0.8rem; color: var(--muted); border-top: 1px solid var(--border); margin-top: 4rem; position: relative; z-index: 1; }
+
+@media (max-width: 600px) {
+  .lessons-grid { grid-template-columns: 1fr; }
+}
+</style>
+</head>
+<body>
+
+<div class="ambient">
+  <div class="ambient-blob amb-1"></div>
+  <div class="ambient-blob amb-2"></div>
+</div>
+
+<nav>
+  <a href="../index.html" class="nav-logo">Insights by <span>Shreyas</span></a>
+  <a href="../index.html#learning" class="nav-back">
+    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="15 18 9 12 15 6"/></svg>
+    Back to Portfolio
+  </a>
+</nav>
+
+<main>
+  <div class="breadcrumb">
+    <a href="../index.html">Home</a>
+    <span style="color:var(--muted);">›</span>
+    <a href="../index.html#learning">Learning Lab</a>
+    <span style="color:var(--muted);">›</span>
+    <span>Python Basics</span>
+  </div>
+
+  <p class="proj-eyebrow">Learning Lab · Python</p>
+  <h1 class="proj-title">Python Basics: Opening Data Files</h1>
+  <p class="proj-desc">I literally started writing Python a few days ago. I didn't want to copy a complex tutorial that I didn't understand, so my very first goal was simple: figure out how to load a CSV file into the program and just look at the data without it crashing. This is my actual first step into coding.</p>
+
+  <div class="tag-row">
+    <span class="tag">Python</span>
+    <span class="tag">Pandas</span>
+    <span class="tag">Data Loading</span>
+    <span class="tag">Beginner</span>
+  </div>
+
+  <div class="context-box">
+    <strong>📋 What this project is:</strong> A super basic Python script running in my terminal. All it does is grab a fake sales dataset, print the first five rows to prove it worked, and then check if there are any blank cells. It is tiny, but getting it to run on my machine for the first time felt like a huge win.
+  </div>
+
+  <hr class="divider" />
+
+  <p class="section-label">Terminal Output</p>
+  <p style="color:var(--muted2); font-size:0.9rem; margin-bottom:1.5rem;">Here is what happens on my screen when I actually run the script. No fancy dashboards yet, just raw text data.</p>
+
+  <div class="terminal-mock">
+    <div class="term-topbar">
+      <div class="term-dot dot-r"></div>
+      <div class="term-dot dot-y"></div>
+      <div class="term-dot dot-g"></div>
+      <div class="term-title">bash — python data_check.py</div>
+    </div>
+    <div class="term-body">
+      <span class="term-prompt">$</span> python data_check.py<br><br>
+      <span class="term-comment">Loading data from sales.csv... Success!</span><br><br>
+      Here is a preview of the data:<br>
+      <span class="term-output">
+      &nbsp;&nbsp;&nbsp;OrderID&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Date&nbsp;&nbsp;Category&nbsp;&nbsp;Price<br>
+      0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1001&nbsp;2022-01-01&nbsp;&nbsp;&nbsp;Jackets&nbsp;&nbsp;120.5<br>
+      1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1002&nbsp;2022-01-02&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Tops&nbsp;&nbsp;&nbsp;45.0<br>
+      2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1003&nbsp;2022-01-02&nbsp;&nbsp;&nbsp;Bottoms&nbsp;&nbsp;&nbsp;60.0<br>
+      3&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1004&nbsp;2022-01-03&nbsp;&nbsp;&nbsp;Jackets&nbsp;&nbsp;130.0<br>
+      4&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1005&nbsp;2022-01-04&nbsp;&nbsp;Footwear&nbsp;&nbsp;&nbsp;95.0<br>
+      </span><br>
+      Checking for missing values in the columns:<br>
+      <span class="term-output">
+      OrderID&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0<br>
+      Date&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0<br>
+      Category&nbsp;&nbsp;&nbsp;&nbsp;1<br>
+      Price&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0<br>
+      dtype: int64
+      </span>
+    </div>
+  </div>
+
+  <hr class="divider" />
+
+  <p class="section-label">Key Code Snippets</p>
+  <p style="color:var(--muted2); font-size:0.9rem; margin-bottom:1rem;">Here is the actual code I wrote to make the terminal output happen above. Kept it to under 10 lines.</p>
+
+  <div class="formula-block">
+    <div class="formula-header">
+      <span class="formula-lang">Python Script</span>
+      <span class="formula-label">data_check.py</span>
+    </div>
+    <div class="formula-body">
+
+      <div class="formula-row">
+        <div class="formula-name">Bringing in the Pandas Library</div>
+        <div class="formula-code"><span class="kw">import</span> pandas <span class="kw">as</span> pd</div>
+        <div class="formula-note">I learned quickly that Python doesn't know how to handle data tables out of the box. You have to "import" the Pandas toolkit first.</div>
+      </div>
+
+      <div class="formula-row">
+        <div class="formula-name">Loading the CSV File</div>
+        <div class="formula-code"><span class="var">df</span> = pd.<span class="fn">read_csv</span>(<span class="str">'sales.csv'</span>)</div>
+        <div class="formula-note">This one line blew my mind. Instead of clicking and opening an Excel file, this command quietly loads the whole dataset into a variable called 'df' (dataframe).</div>
+      </div>
+
+      <div class="formula-row">
+        <div class="formula-name">Looking at the Top 5 Rows</div>
+        <div class="formula-code"><span class="fn">print</span>(<span class="var">df</span>.<span class="fn">head</span>())</div>
+        <div class="formula-note">If you just type print(df), it tries to show you everything and looks messy. .head() gives you just the first five lines as a clean sanity check.</div>
+      </div>
+
+      <div class="formula-row">
+        <div class="formula-name">Finding Blank Cells</div>
+        <div class="formula-code"><span class="fn">print</span>(<span class="var">df</span>.<span class="fn">isnull</span>().<span class="fn">sum</span>())</div>
+        <div class="formula-note">In Excel, I would turn on filters and check for "Blanks". Here, this command checks every column and adds up the missing values instantly.</div>
+      </div>
+
+    </div>
+  </div>
+
+  <hr class="divider" />
+
+  <p class="section-label">What I Learned</p>
+
+  <div class="lessons-grid">
+    <div class="lesson-card">
+      <div class="lesson-card-icon">🔤</div>
+      <div class="lesson-card-title">Case Sensitivity is Real</div>
+      <div class="lesson-card-text">My first script failed because I typed "pandas" with a capital P. In Excel, formulas don't care about capitals. Python is strictly case-sensitive. Learned that the hard way.</div>
+    </div>
+    <div class="lesson-card">
+      <div class="lesson-card-icon">🔢</div>
+      <div class="lesson-card-title">Counting Starts at Zero</div>
+      <div class="lesson-card-text">I was confused when the first row in the terminal said "0" instead of "1". I learned that in programming, indexes almost always start counting from zero.</div>
+    </div>
+    <div class="lesson-card">
+      <div class="lesson-card-icon">⚡</div>
+      <div class="lesson-card-title">It's Incredibly Fast</div>
+      <div class="lesson-card-text">Even with a decent sized CSV, the terminal spits out the answers instantly. No loading wheels or freezing screens like you sometimes get with heavy spreadsheets.</div>
+    </div>
+    <div class="lesson-card">
+      <div class="lesson-card-icon">🐛</div>
+      <div class="lesson-card-title">Errors Are Helpful</div>
+      <div class="lesson-card-text">When the script broke, the error message actually told me what line the problem was on. Once I stopped panicking over the red text, I realized it was just trying to help me fix it.</div>
+    </div>
+  </div>
+
+  <div class="proj-footer-nav">
+    <a href="https://github.com/shreyaspatel13" target="_blank" rel="noopener noreferrer" class="proj-footer-btn btn-accent">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"/></svg>
+      View on GitHub
+    </a>
+    <a href="../index.html#learning" class="proj-footer-btn btn-ghost-sm">
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="15 18 9 12 15 6"/></svg>
+      Back to Learning Lab
+    </a>
+  </div>
+</main>
+
+<footer-bar>© 2026 Shreyas Patel · Learning Lab</footer-bar>
+
+</body>
+</html>
