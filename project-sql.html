@@ -1,37 +1,439 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>SQL Practice | Shreyas Patel</title>
-<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>SQL Basics: Retail Sales — Shreyas Patel</title>
+<meta name="description" content="Learning Lab: SQL Basics querying a retail sales dataset. By Shreyas Patel." />
+
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,700;0,800;0,900;1,700;1,800&display=swap" rel="stylesheet" />
+
 <style>
-  body { background: #07090f; color: #dde4ee; font-family: 'Outfit', sans-serif; line-height: 1.6; padding: 2rem; max-width: 800px; margin: auto; }
-  a { color: #4fffb0; text-decoration: none; font-weight: 600; display: inline-block; margin-bottom: 2rem; }
-  h1 { color: #fff; margin-bottom: 0.5rem; }
-  p { color: #8696b0; margin-bottom: 2rem; }
-  pre { background: #0d1117; padding: 1.5rem; border-radius: 10px; border: 1px solid rgba(255,255,255,0.1); overflow-x: auto; color: #b79eff; font-size: 0.95rem;}
+:root {
+  --bg:         #07090f;
+  --bg2:        #0d1117;
+  --surface:    rgba(255,255,255,0.035);
+  --surface2:   rgba(255,255,255,0.065);
+  --border:     rgba(255,255,255,0.07);
+  --border2:    rgba(255,255,255,0.13);
+  --accent:     #4fffb0;
+  --accent-dim: rgba(79,255,176,0.12);
+  --accent-glow:rgba(79,255,176,0.25);
+  --text:       #dde4ee;
+  --muted:      #5c6a82;
+  --muted2:     #8696b0;
+  --font-head:  'Playfair Display', Georgia, serif;
+  --font-body:  'Outfit', system-ui, sans-serif;
+  --radius:     18px;
+  --radius-sm:  10px;
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font-body);
+  font-size: 16px;
+  line-height: 1.65;
+  overflow-x: hidden;
+}
+body::after {
+  content: '';
+  position: fixed; inset: 0; z-index: 0; pointer-events: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='400'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='400' height='400' filter='url(%23n)' opacity='0.035'/%3E%3C/svg%3E");
+  background-size: 200px;
+}
+.ambient { position: fixed; inset: 0; z-index: -1; overflow: hidden; pointer-events: none; }
+.ambient-blob { position: absolute; border-radius: 50%; filter: blur(130px); opacity: 0.10; }
+.amb-1 { width:600px;height:600px; background:#4fffb0; top:-150px; left:-150px; }
+.amb-2 { width:500px;height:500px; background:#b79eff; bottom:-100px; right:-100px; }
+
+/* NAV */
+nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 200;
+  height: 68px;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 0 clamp(1.5rem, 5vw, 3rem);
+  background: rgba(7,9,15,0.85);
+  backdrop-filter: blur(28px) saturate(1.6);
+  border-bottom: 1px solid var(--border);
+}
+.nav-logo { font-family: var(--font-head); font-weight: 800; font-size: 1.1rem; color: var(--text); text-decoration: none; }
+.nav-logo span { color: var(--accent); }
+.nav-back {
+  display: inline-flex; align-items: center; gap: 8px;
+  font-size: 0.82rem; font-weight: 600; letter-spacing: 0.06em;
+  color: var(--muted2); text-decoration: none;
+  border: 1px solid var(--border2); border-radius: 100px;
+  padding: 8px 18px;
+  transition: color 0.25s, border-color 0.25s;
+}
+.nav-back:hover { color: var(--accent); border-color: rgba(79,255,176,0.3); }
+
+/* MAIN LAYOUT */
+main { max-width: 860px; margin: 0 auto; padding: 110px clamp(1.5rem, 5vw, 2rem) 80px; position: relative; z-index: 1; }
+
+/* BREADCRUMB */
+.breadcrumb { display: flex; align-items: center; gap: 8px; font-size: 0.78rem; color: var(--muted); margin-bottom: 2.5rem; }
+.breadcrumb a { color: var(--muted2); text-decoration: none; transition: color 0.2s; }
+.breadcrumb a:hover { color: var(--accent); }
+.breadcrumb-sep { color: var(--muted); }
+
+/* HEADER */
+.proj-eyebrow {
+  display: inline-flex; align-items: center; gap: 10px;
+  font-size: 0.72rem; font-weight: 600; letter-spacing: 0.14em;
+  text-transform: uppercase; color: var(--accent); margin-bottom: 1rem;
+}
+.proj-eyebrow::before { content: ''; display: block; width: 28px; height: 1px; background: var(--accent); }
+.proj-title {
+  font-family: var(--font-head);
+  font-size: clamp(2rem, 5vw, 3rem);
+  font-weight: 900; line-height: 1.1; letter-spacing: -0.02em;
+  margin-bottom: 1.25rem;
+}
+.proj-desc { font-size: 1.05rem; color: var(--muted2); line-height: 1.8; font-weight: 300; max-width: 680px; margin-bottom: 2rem; }
+
+.tag-row { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 3rem; }
+.tag {
+  font-size: 0.72rem; font-weight: 600; letter-spacing: 0.06em;
+  padding: 5px 14px; border-radius: 100px;
+  background: var(--accent-dim); border: 1px solid rgba(79,255,176,0.25);
+  color: var(--accent);
+}
+
+/* DIVIDER */
+.divider { border: none; border-top: 1px solid var(--border); margin: 3rem 0; }
+
+/* SECTION TITLES */
+.section-label {
+  font-size: 0.72rem; font-weight: 700; letter-spacing: 0.16em;
+  text-transform: uppercase; color: var(--muted); margin-bottom: 1.25rem;
+}
+
+/* CONTEXT BOX */
+.context-box {
+  background: var(--surface); border: 1px solid var(--border);
+  border-left: 3px solid var(--accent);
+  border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+  padding: 1.5rem 1.75rem; margin-bottom: 2.5rem;
+  font-size: 0.95rem; color: var(--muted2); line-height: 1.8;
+}
+.context-box strong { color: var(--text); }
+
+/* CODE BLOCKS */
+.code-block {
+  background: #0a0e18; border: 1px solid var(--border2);
+  border-radius: var(--radius-sm);
+  margin: 2rem 0;
+  overflow: hidden;
+}
+.code-header {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 0.75rem 1.25rem;
+  background: rgba(255,255,255,0.03);
+  border-bottom: 1px solid var(--border);
+}
+.code-lang {
+  font-size: 0.7rem; font-weight: 700; letter-spacing: 0.12em;
+  text-transform: uppercase; color: var(--accent);
+}
+.code-label { font-size: 0.75rem; color: var(--muted); }
+.code-block pre {
+  padding: 1.5rem 1.25rem;
+  overflow-x: auto;
+  font-family: 'Fira Code', 'Cascadia Code', 'Consolas', monospace;
+  font-size: 0.875rem; line-height: 1.7;
+  color: #c9d1e0;
+}
+.kw { color: #b79eff; }   /* keywords */
+.fn { color: #4fffb0; }   /* functions */
+.str { color: #f4c469; }  /* strings */
+.cm { color: #4a5568; font-style: italic; } /* comments */
+.num { color: #63caff; }  /* numbers */
+
+/* RESULT TABLE */
+.result-table-wrap {
+  background: #0a0e18; border: 1px solid var(--border2);
+  border-radius: var(--radius-sm); overflow: hidden; margin: 2rem 0;
+}
+.result-table-header {
+  padding: 0.75rem 1.25rem;
+  background: rgba(255,255,255,0.03);
+  border-bottom: 1px solid var(--border);
+  font-size: 0.7rem; font-weight: 700; letter-spacing: 0.12em;
+  text-transform: uppercase; color: var(--muted2);
+}
+.result-table-wrap table {
+  width: 100%; border-collapse: collapse; font-size: 0.875rem;
+}
+.result-table-wrap th {
+  padding: 0.6rem 1.25rem; text-align: left;
+  font-size: 0.72rem; font-weight: 700; letter-spacing: 0.08em;
+  text-transform: uppercase; color: var(--accent);
+  border-bottom: 1px solid var(--border);
+}
+.result-table-wrap td {
+  padding: 0.55rem 1.25rem; color: var(--muted2);
+  border-bottom: 1px solid rgba(255,255,255,0.03);
+}
+.result-table-wrap tr:last-child td { border-bottom: none; }
+.result-table-wrap tr:hover td { background: rgba(255,255,255,0.02); color: var(--text); }
+
+/* LESSON CARDS */
+.lessons-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-top: 1.5rem; }
+.lesson-card {
+  padding: 1.25rem 1.5rem; border-radius: var(--radius-sm);
+  background: var(--surface); border: 1px solid var(--border);
+}
+.lesson-card-icon { font-size: 1.25rem; margin-bottom: 0.5rem; }
+.lesson-card-title { font-weight: 600; font-size: 0.9rem; color: var(--text); margin-bottom: 0.3rem; }
+.lesson-card-text { font-size: 0.82rem; color: var(--muted2); line-height: 1.6; }
+
+/* FOOTER NAV */
+.proj-footer-nav {
+  display: flex; gap: 1rem; flex-wrap: wrap; margin-top: 4rem; padding-top: 2rem;
+  border-top: 1px solid var(--border);
+}
+.proj-footer-btn {
+  display: inline-flex; align-items: center; gap: 9px;
+  font-size: 0.85rem; font-weight: 600; text-decoration: none;
+  padding: 12px 24px; border-radius: 100px;
+  transition: background 0.25s, transform 0.2s, box-shadow 0.25s;
+}
+.btn-accent { background: var(--accent-dim); border: 1px solid rgba(79,255,176,0.3); color: var(--accent); }
+.btn-accent:hover { background: rgba(79,255,176,0.2); box-shadow: 0 4px 20px var(--accent-glow); transform: translateY(-2px); }
+.btn-ghost-sm { background: var(--surface); border: 1px solid var(--border2); color: var(--muted2); }
+.btn-ghost-sm:hover { color: var(--text); border-color: rgba(255,255,255,0.25); transform: translateY(-2px); }
+
+footer-bar {
+  display: block; text-align: center; padding: 2rem; font-size: 0.8rem; color: var(--muted);
+  border-top: 1px solid var(--border); margin-top: 4rem;
+  position: relative; z-index: 1;
+}
+
+@media (max-width: 600px) {
+  .lessons-grid { grid-template-columns: 1fr; }
+  .proj-title { font-size: 2rem; }
+}
 </style>
 </head>
 <body>
-  <a href="index.html">← Back to Portfolio</a>
-  <h1>SQL Basics: Querying Retail Sales</h1>
-  <p>Here is a snippet from my first SQL practice session. I wanted to see how to group data and find total sales per region using a basic SELECT and GROUP BY statement.</p>
-  
-  <pre>
--- Select the region and calculate the total sales volume
-SELECT 
-    Region,
-    COUNT(OrderID) AS Total_Orders,
-    SUM(Sales_Amount) AS Total_Revenue
-FROM 
-    retail_sales_data
-WHERE 
-    Status = 'Completed'
-GROUP BY 
-    Region
-ORDER BY 
-    Total_Revenue DESC;
-  </pre>
+
+<div class="ambient">
+  <div class="ambient-blob amb-1"></div>
+  <div class="ambient-blob amb-2"></div>
+</div>
+
+<nav>
+  <a href="../index.html" class="nav-logo">Insights by <span>Shreyas</span></a>
+  <a href="../index.html#learning" class="nav-back">
+    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="15 18 9 12 15 6"/></svg>
+    Back to Portfolio
+  </a>
+</nav>
+
+<main>
+  <div class="breadcrumb">
+    <a href="../index.html">Home</a>
+    <span class="breadcrumb-sep">›</span>
+    <a href="../index.html#learning">Learning Lab</a>
+    <span class="breadcrumb-sep">›</span>
+    <span>SQL Basics</span>
+  </div>
+
+  <p class="proj-eyebrow">Learning Lab · SQL</p>
+  <h1 class="proj-title">SQL Basics: Querying a Retail Sales Dataset</h1>
+  <p class="proj-desc">My first real SQL project. I grabbed a public retail dataset and started writing queries from scratch — finding top-selling products, calculating total revenue by month, filtering out returned orders. Nothing fancy, but I learned a ton about JOINs and GROUP BY just by playing around with real data rather than textbook examples.</p>
+
+  <div class="tag-row">
+    <span class="tag">MySQL</span>
+    <span class="tag">SELECT</span>
+    <span class="tag">JOINs</span>
+    <span class="tag">GROUP BY</span>
+    <span class="tag">WHERE / HAVING</span>
+    <span class="tag">Aggregate Functions</span>
+    <span class="tag">Beginner Level</span>
+  </div>
+
+  <div class="context-box">
+    <strong>📋 What this project is:</strong> An educational exercise using a publicly available retail sales dataset (sourced from Kaggle). I set up a local MySQL database, imported the CSV data, and worked through a series of progressively harder queries — each one teaching me something new. The queries below are real ones I wrote and ran myself.
+  </div>
+
+  <hr class="divider" />
+
+  <p class="section-label">Query 1 — Total Revenue by Month</p>
+  <p style="color:var(--muted2); font-size:0.9rem; margin-bottom:1rem;">The first thing I wanted to know: how does revenue trend over time? This taught me <code style="color:var(--accent); background:rgba(79,255,176,0.08); padding:2px 7px; border-radius:5px;">DATE_FORMAT</code> and basic aggregation.</p>
+
+  <div class="code-block">
+    <div class="code-header">
+      <span class="code-lang">SQL</span>
+      <span class="code-label">revenue_by_month.sql</span>
+    </div>
+    <pre><span class="cm">-- Total revenue grouped by month</span>
+<span class="cm">-- Goal: spot seasonal trends in sales performance</span>
+
+<span class="kw">SELECT</span>
+    <span class="fn">DATE_FORMAT</span>(order_date, <span class="str">'%Y-%m'</span>) <span class="kw">AS</span> month,
+    <span class="fn">COUNT</span>(order_id)              <span class="kw">AS</span> total_orders,
+    <span class="fn">ROUND</span>(<span class="fn">SUM</span>(sale_price), <span class="num">2</span>)    <span class="kw">AS</span> total_revenue,
+    <span class="fn">ROUND</span>(<span class="fn">AVG</span>(sale_price), <span class="num">2</span>)    <span class="kw">AS</span> avg_order_value
+<span class="kw">FROM</span> orders
+<span class="kw">WHERE</span> status != <span class="str">'Returned'</span>
+<span class="kw">GROUP BY</span> month
+<span class="kw">ORDER BY</span> month <span class="kw">ASC</span>;</pre>
+  </div>
+
+  <div class="result-table-wrap">
+    <div class="result-table-header">📊 Sample Output (first 6 rows)</div>
+    <table>
+      <thead>
+        <tr>
+          <th>month</th>
+          <th>total_orders</th>
+          <th>total_revenue</th>
+          <th>avg_order_value</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td>2022-01</td><td>312</td><td>$48,204.50</td><td>$154.50</td></tr>
+        <tr><td>2022-02</td><td>287</td><td>$41,890.20</td><td>$145.96</td></tr>
+        <tr><td>2022-03</td><td>398</td><td>$61,340.80</td><td>$154.12</td></tr>
+        <tr><td>2022-04</td><td>356</td><td>$54,788.00</td><td>$153.90</td></tr>
+        <tr><td>2022-05</td><td>421</td><td>$66,920.30</td><td>$158.95</td></tr>
+        <tr><td>2022-06</td><td>389</td><td>$59,240.70</td><td>$152.29</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <hr class="divider" />
+
+  <p class="section-label">Query 2 — Top 10 Best-Selling Products</p>
+  <p style="color:var(--muted2); font-size:0.9rem; margin-bottom:1rem;">I wanted to find which products drove the most revenue. This is where I first used <code style="color:var(--accent); background:rgba(79,255,176,0.08); padding:2px 7px; border-radius:5px;">JOIN</code> to combine two tables.</p>
+
+  <div class="code-block">
+    <div class="code-header">
+      <span class="code-lang">SQL</span>
+      <span class="code-label">top_products.sql</span>
+    </div>
+    <pre><span class="cm">-- Top 10 products by total revenue (excluding returns)</span>
+
+<span class="kw">SELECT</span>
+    p.product_name,
+    p.category,
+    <span class="fn">COUNT</span>(o.order_id)           <span class="kw">AS</span> units_sold,
+    <span class="fn">ROUND</span>(<span class="fn">SUM</span>(o.sale_price), <span class="num">2</span>) <span class="kw">AS</span> total_revenue
+<span class="kw">FROM</span> orders o
+<span class="kw">JOIN</span> products p <span class="kw">ON</span> o.product_id = p.product_id
+<span class="kw">WHERE</span> o.status != <span class="str">'Returned'</span>
+<span class="kw">GROUP BY</span> p.product_name, p.category
+<span class="kw">ORDER BY</span> total_revenue <span class="kw">DESC</span>
+<span class="kw">LIMIT</span> <span class="num">10</span>;</pre>
+  </div>
+
+  <div class="result-table-wrap">
+    <div class="result-table-header">📊 Sample Output</div>
+    <table>
+      <thead>
+        <tr><th>product_name</th><th>category</th><th>units_sold</th><th>total_revenue</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Wool Blend Overcoat</td><td>Jackets</td><td>842</td><td>$128,430.00</td></tr>
+        <tr><td>Running Pro Sneakers</td><td>Footwear</td><td>1,204</td><td>$96,320.00</td></tr>
+        <tr><td>Slim-Fit Chinos</td><td>Bottoms</td><td>1,876</td><td>$75,040.00</td></tr>
+        <tr><td>Cotton Oxford Shirt</td><td>Tops</td><td>2,341</td><td>$70,230.00</td></tr>
+        <tr><td>Leather Tote Bag</td><td>Accessories</td><td>654</td><td>$65,400.00</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <hr class="divider" />
+
+  <p class="section-label">Query 3 — Categories with High Return Rates</p>
+  <p style="color:var(--muted2); font-size:0.9rem; margin-bottom:1rem;">This one used <code style="color:var(--accent); background:rgba(79,255,176,0.08); padding:2px 7px; border-radius:5px;">HAVING</code> to filter after aggregation — a distinction I kept getting confused with <code style="color:var(--accent); background:rgba(79,255,176,0.08); padding:2px 7px; border-radius:5px;">WHERE</code>.</p>
+
+  <div class="code-block">
+    <div class="code-header">
+      <span class="code-lang">SQL</span>
+      <span class="code-label">return_rates.sql</span>
+    </div>
+    <pre><span class="cm">-- Find product categories where return rate > 15%</span>
+<span class="cm">-- WHERE filters rows; HAVING filters groups — learned this the hard way</span>
+
+<span class="kw">SELECT</span>
+    p.category,
+    <span class="fn">COUNT</span>(o.order_id)                         <span class="kw">AS</span> total_orders,
+    <span class="fn">SUM</span>(<span class="kw">CASE WHEN</span> o.status = <span class="str">'Returned'</span>
+             <span class="kw">THEN</span> <span class="num">1</span> <span class="kw">ELSE</span> <span class="num">0</span> <span class="kw">END</span>)              <span class="kw">AS</span> returns,
+    <span class="fn">ROUND</span>(
+        <span class="fn">SUM</span>(<span class="kw">CASE WHEN</span> o.status = <span class="str">'Returned'</span>
+                 <span class="kw">THEN</span> <span class="num">1</span> <span class="kw">ELSE</span> <span class="num">0</span> <span class="kw">END</span>) * <span class="num">100.0</span>
+        / <span class="fn">COUNT</span>(o.order_id), <span class="num">2</span>
+    )                                             <span class="kw">AS</span> return_rate_pct
+<span class="kw">FROM</span> orders o
+<span class="kw">JOIN</span> products p <span class="kw">ON</span> o.product_id = p.product_id
+<span class="kw">GROUP BY</span> p.category
+<span class="kw">HAVING</span> return_rate_pct > <span class="num">15</span>
+<span class="kw">ORDER BY</span> return_rate_pct <span class="kw">DESC</span>;</pre>
+  </div>
+
+  <div class="result-table-wrap">
+    <div class="result-table-header">📊 Sample Output</div>
+    <table>
+      <thead>
+        <tr><th>category</th><th>total_orders</th><th>returns</th><th>return_rate_pct</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Footwear</td><td>4,820</td><td>1,012</td><td>21.0%</td></tr>
+        <tr><td>Jackets</td><td>2,340</td><td>428</td><td>18.3%</td></tr>
+        <tr><td>Accessories</td><td>3,110</td><td>528</td><td>17.0%</td></tr>
+        <tr><td>Dresses</td><td>1,890</td><td>302</td><td>15.98%</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <hr class="divider" />
+
+  <p class="section-label">What I Learned</p>
+
+  <div class="lessons-grid">
+    <div class="lesson-card">
+      <div class="lesson-card-icon">🔗</div>
+      <div class="lesson-card-title">JOIN is not scary</div>
+      <div class="lesson-card-text">I kept avoiding JOINs thinking they were complex. Turns out they're just matching rows on a shared column. Writing them on real data made it click immediately.</div>
+    </div>
+    <div class="lesson-card">
+      <div class="lesson-card-icon">📌</div>
+      <div class="lesson-card-title">WHERE vs HAVING</div>
+      <div class="lesson-card-text">WHERE filters before grouping; HAVING filters after. I wrote about 6 broken queries before I actually understood why this distinction exists.</div>
+    </div>
+    <div class="lesson-card">
+      <div class="lesson-card-icon">📐</div>
+      <div class="lesson-card-title">ROUND() everything</div>
+      <div class="lesson-card-text">Without ROUND(), currency values come back as $48204.498372. Learned to always wrap monetary calculations and to specify decimal places.</div>
+    </div>
+    <div class="lesson-card">
+      <div class="lesson-card-icon">🚫</div>
+      <div class="lesson-card-title">Filter bad data first</div>
+      <div class="lesson-card-text">Including returned orders skewed every revenue calculation. Filtering with <code style="color:var(--accent);">WHERE status != 'Returned'</code> was a game-changer for accuracy.</div>
+    </div>
+  </div>
+
+  <div class="proj-footer-nav">
+    <a href="https://github.com/shreyaspatel13" target="_blank" rel="noopener noreferrer" class="proj-footer-btn btn-accent">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"/></svg>
+      View on GitHub
+    </a>
+    <a href="../index.html#learning" class="proj-footer-btn btn-ghost-sm">
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="15 18 9 12 15 6"/></svg>
+      Back to Learning Lab
+    </a>
+  </div>
+</main>
+
+<footer-bar>© 2026 Shreyas Patel · Learning Lab</footer-bar>
+
 </body>
 </html>
