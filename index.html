@@ -1,3 +1,5 @@
+html
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -6,7 +8,6 @@
 <title>Shreyas Patel — Data Analyst</title>
 <meta name="description" content="Shreyas Patel — Data Analyst specializing in turning operational data into business decisions. SQL, Power BI, Excel, Salesforce." />
 
-<!-- Fonts: Clash Display for headings (bold, editorial), Outfit for body (clean, modern) -->
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,700;0,800;0,900;1,700;1,800&display=swap" rel="stylesheet" />
@@ -22,7 +23,7 @@
   --surface2:   rgba(255,255,255,0.065);
   --border:     rgba(255,255,255,0.07);
   --border2:    rgba(255,255,255,0.13);
-  --accent:     #4fffb0;      /* mint-green — crisp, analytical */
+  --accent:     #4fffb0;
   --accent-dim: rgba(79,255,176,0.12);
   --accent-glow:rgba(79,255,176,0.25);
   --gold:       #f4c469;
@@ -50,7 +51,6 @@ body {
   overflow-x: hidden;
 }
 
-/* ─── NOISE TEXTURE ─── */
 body::after {
   content: '';
   position: fixed; inset: 0; z-index: 0; pointer-events: none;
@@ -58,7 +58,6 @@ body::after {
   background-size: 200px;
 }
 
-/* ─── AMBIENT GLOW ─── */
 .ambient {
   position: fixed; inset: 0; z-index: -1; overflow: hidden; pointer-events: none;
 }
@@ -140,8 +139,6 @@ nav {
 }
 .nav-resume-btn svg { flex-shrink: 0; }
 
-.nav-logo svg text { font-family: inherit; }
-
 .hamburger {
   display: none; flex-direction: column; gap: 5px;
   background: none; border: none; cursor: pointer; padding: 4px;
@@ -187,7 +184,6 @@ section { padding: 110px clamp(1.5rem, 5vw, 3rem); position: relative; z-index: 
   color: var(--text);
 }
 
-/* Glass card */
 .glass {
   background: var(--surface);
   backdrop-filter: blur(20px);
@@ -276,11 +272,9 @@ section { padding: 110px clamp(1.5rem, 5vw, 3rem); position: relative; z-index: 
 }
 .btn-ghost:hover { border-color: var(--accent); color: var(--accent); transform: translateY(-3px); }
 
-/* ─── HERO STATS ─── */
 .hero-stats {
   display: flex; gap: 2.5rem; margin-top: 4rem; flex-wrap: wrap;
 }
-.hero-stat {}
 .hero-stat-num {
   font-family: var(--font-head);
   font-size: 2.6rem; font-weight: 900;
@@ -291,7 +285,6 @@ section { padding: 110px clamp(1.5rem, 5vw, 3rem); position: relative; z-index: 
   letter-spacing: 0.05em; text-transform: uppercase; margin-top: 4px;
 }
 
-/* ─── SCROLL INDICATOR ─── */
 .scroll-indicator {
   position: absolute; bottom: 2.5rem; left: 50%; transform: translateX(-50%);
   display: flex; flex-direction: column; align-items: center; gap: 8px;
@@ -341,8 +334,6 @@ section { padding: 110px clamp(1.5rem, 5vw, 3rem); position: relative; z-index: 
 /* ════════════════════════════════════════════
    EXPERIENCE
 ════════════════════════════════════════════ */
-#experience {}
-
 .exp-featured {
   background: var(--surface); border: 1px solid var(--border);
   border-radius: 24px; padding: 2.5rem 3rem;
@@ -445,10 +436,8 @@ section { padding: 110px clamp(1.5rem, 5vw, 3rem); position: relative; z-index: 
 }
 
 /* ════════════════════════════════════════════
-   PORTFOLIO
+   PORTFOLIO (existing work)
 ════════════════════════════════════════════ */
-#portfolio {}
-
 .portfolio-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(330px, 1fr)); gap: 1.5rem; }
 
 .project-card {
@@ -464,8 +453,8 @@ section { padding: 110px clamp(1.5rem, 5vw, 3rem); position: relative; z-index: 
   height: 140px; display: flex; align-items: center; justify-content: center;
   font-size: 2.8rem; position: relative; overflow: hidden;
 }
-.ph-fraud   { background: linear-gradient(135deg, rgba(79,255,176,0.1), rgba(79,255,176,0.03)); }
-.ph-dash    { background: linear-gradient(135deg, rgba(183,158,255,0.1), rgba(183,158,255,0.03)); }
+.ph-fraud     { background: linear-gradient(135deg, rgba(79,255,176,0.1), rgba(79,255,176,0.03)); }
+.ph-dash      { background: linear-gradient(135deg, rgba(183,158,255,0.1), rgba(183,158,255,0.03)); }
 .ph-sentiment { background: linear-gradient(135deg, rgba(244,196,105,0.1), rgba(244,196,105,0.03)); }
 .ph-inventory { background: linear-gradient(135deg, rgba(99,202,255,0.1), rgba(99,202,255,0.03)); }
 
@@ -490,9 +479,118 @@ section { padding: 110px clamp(1.5rem, 5vw, 3rem); position: relative; z-index: 
 }
 
 /* ════════════════════════════════════════════
+   LEARNING LAB (Educational Projects)
+════════════════════════════════════════════ */
+#learning { background: var(--bg2); }
+
+.learning-intro {
+  max-width: 680px; margin-bottom: 4rem;
+}
+.learning-intro p {
+  color: var(--muted2); font-size: 1.05rem; font-weight: 300; line-height: 1.85;
+}
+.learning-intro p strong { color: var(--text); font-weight: 600; }
+
+.learning-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+  gap: 1.75rem;
+}
+
+.learn-card {
+  border-radius: var(--radius); overflow: hidden;
+  background: var(--surface); border: 1px solid var(--border);
+  display: flex; flex-direction: column;
+  transition: transform 0.35s, border-color 0.35s, box-shadow 0.35s;
+  position: relative;
+}
+.learn-card:hover {
+  transform: translateY(-7px);
+  border-color: var(--lc-border, var(--border2));
+  box-shadow: 0 28px 70px var(--lc-shadow, transparent);
+}
+
+.learn-card-top {
+  height: 150px; display: flex; align-items: center; justify-content: center;
+  font-size: 3rem; position: relative; overflow: hidden;
+}
+
+.learn-badge-row {
+  position: absolute; top: 14px; left: 14px; right: 14px;
+  display: flex; justify-content: space-between; align-items: center;
+}
+.learn-edu-badge {
+  font-size: 0.6rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase;
+  padding: 4px 11px; border-radius: 100px;
+  background: rgba(79,255,176,0.12); color: var(--accent);
+  border: 1px solid rgba(79,255,176,0.28);
+}
+.learn-tool-badge {
+  font-size: 0.6rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase;
+  padding: 4px 11px; border-radius: 100px;
+  color: var(--muted2);
+  border: 1px solid var(--border2);
+  background: rgba(255,255,255,0.04);
+}
+
+.learn-body { padding: 1.75rem 2rem 1.5rem; flex: 1; display: flex; flex-direction: column; }
+.learn-title { font-weight: 700; font-size: 1.12rem; color: var(--text); margin-bottom: 0.55rem; }
+.learn-desc { font-size: 0.875rem; color: var(--muted2); line-height: 1.72; flex: 1; margin-bottom: 1.25rem; }
+
+.learn-what-i-used {
+  font-size: 0.7rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase;
+  color: var(--muted); margin-bottom: 0.5rem; margin-top: 1rem;
+}
+.learn-tags { display: flex; flex-wrap: wrap; gap: 6px; }
+.ltag {
+  font-size: 0.7rem; font-weight: 600; letter-spacing: 0.06em;
+  padding: 4px 11px; border-radius: 100px;
+  background: rgba(255,255,255,0.05); border: 1px solid var(--border);
+  color: var(--muted2); white-space: nowrap;
+}
+
+.learn-footer {
+  padding: 1rem 2rem 1.5rem;
+  border-top: 1px solid var(--border);
+  display: flex; gap: 0.75rem; align-items: center; flex-wrap: wrap;
+}
+
+.learn-link {
+  display: inline-flex; align-items: center; gap: 7px;
+  font-size: 0.8rem; font-weight: 600; letter-spacing: 0.04em;
+  text-decoration: none; border-radius: 100px;
+  padding: 8px 16px;
+  transition: background 0.25s, color 0.25s, transform 0.2s, box-shadow 0.25s;
+}
+.learn-link-github {
+  border: 1px solid var(--border2); color: var(--muted2);
+  background: rgba(255,255,255,0.03);
+}
+.learn-link-github:hover {
+  color: var(--text); border-color: rgba(255,255,255,0.25);
+  transform: translateY(-2px);
+}
+.learn-link-view {
+  color: var(--accent);
+  background: var(--accent-dim);
+  border: 1px solid rgba(79,255,176,0.25);
+}
+.learn-link-view:hover {
+  background: rgba(79,255,176,0.2);
+  box-shadow: 0 4px 18px var(--accent-glow);
+  transform: translateY(-2px);
+}
+
+/* color themes per card */
+.lc-sql   { --lc-border: rgba(79,255,176,0.3);  --lc-shadow: rgba(79,255,176,0.06);  background: linear-gradient(135deg, rgba(79,255,176,0.09), rgba(79,255,176,0.02)); }
+.lc-excel { --lc-border: rgba(244,196,105,0.3); --lc-shadow: rgba(244,196,105,0.06); background: linear-gradient(135deg, rgba(244,196,105,0.09), rgba(244,196,105,0.02)); }
+.lc-pbi   { --lc-border: rgba(183,158,255,0.3); --lc-shadow: rgba(183,158,255,0.06); background: linear-gradient(135deg, rgba(183,158,255,0.09), rgba(183,158,255,0.02)); }
+.lc-py    { --lc-border: rgba(99,202,255,0.3);  --lc-shadow: rgba(99,202,255,0.06);  background: linear-gradient(135deg, rgba(99,202,255,0.09), rgba(99,202,255,0.02)); }
+
+/* ════════════════════════════════════════════
    EDUCATION & CERTS
 ════════════════════════════════════════════ */
-#education { background: var(--bg2); }
+#education { background: var(--bg); }
 
 .edu-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 1.5rem; }
 
@@ -514,8 +612,6 @@ section { padding: 110px clamp(1.5rem, 5vw, 3rem); position: relative; z-index: 
 /* ════════════════════════════════════════════
    CONTACT
 ════════════════════════════════════════════ */
-#contact {}
-
 .contact-inner {
   max-width: 720px; margin: 0 auto; text-align: center;
 }
@@ -542,8 +638,8 @@ section { padding: 110px clamp(1.5rem, 5vw, 3rem); position: relative; z-index: 
 footer {
   border-top: 1px solid var(--border); margin-top: 4rem;
   padding: 2rem clamp(1.5rem, 5vw, 3rem);
-  display: flex; justify-content: space-between; align-items: center; flex-wrap: gap;
-  position: relative; z-index: 1;
+  display: flex; justify-content: space-between; align-items: center;
+  position: relative; z-index: 1; flex-wrap: wrap; gap: 0.75rem;
 }
 .footer-copy { font-size: 0.82rem; color: var(--muted); }
 .footer-tag { font-size: 0.82rem; color: var(--accent); font-weight: 500; }
@@ -580,19 +676,14 @@ footer {
 <nav>
   <a href="#hero" class="nav-logo" aria-label="Insights by Shreyas">
   <svg width="210" height="36" viewBox="0 0 210 36" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-    <!-- Spark / chart icon -->
     <g>
-      <!-- Bar chart bars -->
       <rect x="2" y="20" width="5" height="14" rx="1.5" fill="#4fffb0" opacity="0.5"/>
       <rect x="10" y="13" width="5" height="21" rx="1.5" fill="#4fffb0" opacity="0.75"/>
       <rect x="18" y="6" width="5" height="28" rx="1.5" fill="#4fffb0"/>
-      <!-- Rising sparkline over bars -->
       <polyline points="4,22 12,16 20,9 26,5" stroke="#4fffb0" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
       <circle cx="26" cy="5" r="2.2" fill="#4fffb0"/>
     </g>
-    <!-- "insights by" text -->
-    <text x="34" y="15" font-family="Outfit, system-ui, sans-serif" font-size="9" font-weight="500" letter-spacing="0.12em" fill="#8696b0" text-transform="uppercase">INSIGHTS BY</text>
-    <!-- "Shreyas" text -->
+    <text x="34" y="15" font-family="Outfit, system-ui, sans-serif" font-size="9" font-weight="500" letter-spacing="0.12em" fill="#8696b0">INSIGHTS BY</text>
     <text x="34" y="30" font-family="Playfair Display, Georgia, serif" font-size="16" font-weight="800" letter-spacing="-0.01em" fill="#dde4ee">Shreyas</text>
   </svg>
 </a>
@@ -601,6 +692,7 @@ footer {
     <li><a href="#experience">Experience</a></li>
     <li><a href="#skills">Skills</a></li>
     <li><a href="#portfolio">Portfolio</a></li>
+    <li><a href="#learning">Learning Lab</a></li>
     <li><a href="#education">Education</a></li>
     <li><a href="#contact" class="nav-cta">Contact</a></li>
   </ul>
@@ -617,6 +709,7 @@ footer {
   <a href="#experience" onclick="closeMobile()">Experience</a>
   <a href="#skills" onclick="closeMobile()">Skills</a>
   <a href="#portfolio" onclick="closeMobile()">Portfolio</a>
+  <a href="#learning" onclick="closeMobile()">Learning Lab</a>
   <a href="#education" onclick="closeMobile()">Education</a>
   <a href="#contact" onclick="closeMobile()">Contact</a>
 </div>
@@ -687,16 +780,16 @@ footer {
     <div class="about-grid">
       <div class="about-text reveal">
         <p>
-          I'm <strong>Shreyas Patel</strong>, a results-driven professional transitioning into data analytics after 4+ years building operational expertise across technical support, store management, and financial operations. My background in <em>Computer Engineering</em> gives me a strong foundation — now I'm channeling it into data.
+          I'm <strong>Shreyas Patel</strong>, a results-driven professional transitioning into data analytics after 4+ years building operational expertise across technical support, store management, and financial operations. My background in <em>Computer Engineering</em> gives me a strong foundation and now I'm channeling it into data.
         </p>
         <p>
-          At Concentrix, I manage <strong>600+ cases monthly</strong> — every case is a data point. I designed troubleshooting frameworks that cut repeat escalations by <strong>25–30%</strong>, built resolution templates that improved First Contact Resolution, and maintained <strong>100% accuracy</strong> in sensitive financial transaction processing. That's not just support work — that's operational analytics in practice.
+          At Concentrix, I manage <strong>600+ cases monthly</strong> and every case is a data point. I designed troubleshooting frameworks that cut repeat escalations by <strong>25 to 30%</strong>, built resolution templates that improved First Contact Resolution, and maintained <strong>100% accuracy</strong> in sensitive financial transaction processing. That's not just support work, that's operational analytics in practice.
         </p>
         <p>
-          My career pivot to data analysis isn't a leap in the dark — it's a natural progression. I've been living data: tracking KPIs, spotting fraud patterns, analyzing CSAT trends, and mentoring teams using insight-driven feedback loops.
+          My career move into data analysis isn't a leap in the dark. It's a natural progression. I've been living data all along: tracking KPIs, spotting fraud patterns, analyzing CSAT trends, and mentoring teams using insight-driven feedback loops.
         </p>
         <div class="about-highlight">
-          <strong>Why Data Analysis?</strong> I realized that my strongest moments at work weren't solving individual tickets — they were when I spotted a pattern across hundreds of them and changed the process. That's where data lives, and that's where I want to be.
+          <strong>Why Data Analysis?</strong> I realized that my strongest moments at work weren't solving individual tickets. They were when I spotted a pattern across hundreds of them and changed the process. That's where data lives, and that's where I want to be.
         </div>
       </div>
 
@@ -704,12 +797,12 @@ footer {
         <div class="sidebar-card">
           <div class="sidebar-card-icon">📍</div>
           <div class="sidebar-card-title">Location</div>
-          <div class="sidebar-card-text">Ontario, Canada<br>Open to remote, hybrid & relocation</div>
+          <div class="sidebar-card-text">Ontario, Canada<br>Open to remote, hybrid and relocation</div>
         </div>
         <div class="sidebar-card">
           <div class="sidebar-card-icon">🎯</div>
           <div class="sidebar-card-title">Current Focus</div>
-          <div class="sidebar-card-text">Building a data analyst portfolio with real-world projects in fraud analysis, operational dashboards, and customer intelligence.</div>
+          <div class="sidebar-card-text">Building a data analyst portfolio with real-world projects in operational dashboards, customer intelligence, and hands-on learning exercises.</div>
         </div>
         <div class="sidebar-card">
           <div class="sidebar-card-icon">🛠️</div>
@@ -758,15 +851,15 @@ footer {
       <ul class="exp-bullets">
         <li>
           <span class="exp-bullet-icon">▸</span>
-          <span class="exp-bullet-text"><strong>High-Volume Case Management:</strong> Process 20–25 complex technical and financial cases daily (600+ monthly) involving payment discrepancies, fraud detection, and hardware/software issues — building deep familiarity with transactional data and anomaly patterns.</span>
+          <span class="exp-bullet-text"><strong>High-Volume Case Management:</strong> Process 20 to 25 complex technical and financial cases daily (600+ monthly) involving payment discrepancies, fraud detection, and hardware and software issues, building deep familiarity with transactional data and anomaly patterns.</span>
         </li>
         <li>
           <span class="exp-bullet-icon">▸</span>
-          <span class="exp-bullet-text"><strong>Process Optimization via Data:</strong> Designed and implemented standardized troubleshooting checklists and resolution templates, reducing repeat follow-up cases by <strong>25–30%</strong> and improving First Contact Resolution (FCR) — driven entirely by case data analysis.</span>
+          <span class="exp-bullet-text"><strong>Process Optimization via Data:</strong> Designed and implemented standardized troubleshooting checklists and resolution templates, reducing repeat follow-up cases by <strong>25 to 30%</strong> and improving First Contact Resolution (FCR), driven entirely by case data analysis.</span>
         </li>
         <li>
           <span class="exp-bullet-icon">▸</span>
-          <span class="exp-bullet-text"><strong>Financial Integrity & Fraud Detection:</strong> Process sensitive transactions with 100% accuracy, applying pattern recognition and risk frameworks to flag payment anomalies — directly transferable to data-driven fraud analysis.</span>
+          <span class="exp-bullet-text"><strong>Financial Integrity and Anomaly Detection:</strong> Process sensitive transactions with 100% accuracy, applying pattern recognition and risk frameworks to flag payment anomalies, directly transferable to data-driven analysis work.</span>
         </li>
         <li>
           <span class="exp-bullet-icon">▸</span>
@@ -774,11 +867,11 @@ footer {
         </li>
         <li>
           <span class="exp-bullet-icon">▸</span>
-          <span class="exp-bullet-text"><strong>Performance Excellence:</strong> Consistently maintain a <strong>95%+ CSAT score</strong> while meeting all KPIs and adhering strictly to SLAs — tracked, measured, and reported using CRM dashboards and reporting tools.</span>
+          <span class="exp-bullet-text"><strong>Performance Excellence:</strong> Consistently maintain a <strong>95%+ CSAT score</strong> while meeting all KPIs and adhering strictly to SLAs, tracked, measured, and reported using CRM dashboards and reporting tools.</span>
         </li>
         <li>
           <span class="exp-bullet-icon">▸</span>
-          <span class="exp-bullet-text"><strong>Mentorship & Knowledge Transfer:</strong> Act as Subject Matter Expert (SME) for junior advisors, onboarding new hires and coaching teams on KPI achievement using structured performance data.</span>
+          <span class="exp-bullet-text"><strong>Mentorship and Knowledge Transfer:</strong> Act as Subject Matter Expert (SME) for junior advisors, onboarding new hires and coaching teams on KPI achievement using structured performance data.</span>
         </li>
       </ul>
     </div>
@@ -790,24 +883,24 @@ footer {
         <div class="exp-card-title">Assistant Manager, Operations</div>
         <div class="exp-card-date">Feb 2023 – Feb 2025 · Melfort, SK</div>
         <ul class="exp-card-points">
-          <li>Led team of 10–12 employees; supervised daily operations and ensured service quality consistency</li>
+          <li>Led a team of 10 to 12 employees and supervised daily operations to ensure service quality consistency</li>
           <li>Managed $40K+ in monthly inventory and financial reconciliation with full vendor coordination</li>
-          <li>Introduced production planning templates — reduced food waste by 10% and prep time significantly</li>
+          <li>Introduced production planning templates that reduced food waste by 10% and prep time significantly</li>
           <li>Conducted cross-skill staff training, improving employee efficiency by 18%</li>
-          <li>Implemented customer feedback tracking system, sustaining a 98% satisfaction rate</li>
+          <li>Implemented a customer feedback tracking system, sustaining a 98% satisfaction rate</li>
         </ul>
       </div>
 
       <div class="exp-card">
         <div class="exp-card-co">Tiggy Delivery Corp.</div>
-        <div class="exp-card-title">Store Manager & Key Holder</div>
+        <div class="exp-card-title">Store Manager and Key Holder</div>
         <div class="exp-card-date">Jan 2022 – Jul 2022 · Toronto, ON</div>
         <ul class="exp-card-points">
           <li>Managed scheduling and supervision for 40+ employees, optimizing labor allocation for peak demand</li>
-          <li>Improved operational turnaround time by 15% through full audit and restructuring of on-site roles</li>
+          <li>Improved operational turnaround time by 15% through a full audit and restructuring of on-site roles</li>
           <li>Tracked real-time expenses and labor costs using Excel and Google Sheets for weekly reports</li>
-          <li>Built a structured support response framework reducing customer resolution time by 30%</li>
-          <li>Implemented waste reduction programs — lowered non-recyclable output by 20% in four months</li>
+          <li>Built a structured support response framework, reducing customer resolution time by 30%</li>
+          <li>Implemented waste reduction programs, lowering non-recyclable output by 20% in four months</li>
         </ul>
       </div>
     </div>
@@ -826,7 +919,7 @@ footer {
            style="--bar-color: #4fffb0; --hover-border: rgba(79,255,176,0.35); --hover-shadow: rgba(79,255,176,0.08); --bar-width: 85%;">
         <div class="skill-icon">🗄️</div>
         <div class="skill-name">SQL / MySQL</div>
-        <div class="skill-desc">Database querying, complex joins, aggregation functions, and data extraction for business reporting and fraud investigation.</div>
+        <div class="skill-desc">Database querying, complex joins, aggregation functions, and data extraction for business reporting and analysis.</div>
         <div class="skill-bar-track"><div class="skill-bar-fill" data-width="85%"></div></div>
         <div class="skill-tags">
           <span class="skill-tag">SELECT / JOINs</span>
@@ -879,10 +972,10 @@ footer {
       </div>
 
       <div class="skill-card reveal"
-           style="--bar-color: #ff9f7f; --hover-border: rgba(255,159,127,0.35); --hover-shadow: rgba(255,159,127,0.08); --bar-width: 70%;">
+           style="--bar-color: #ff9f7f; --hover-border: rgba(255,159,127,0.35); --hover-shadow: rgba(255,159,127,0.08); --bar-width: 25%;">
         <div class="skill-icon">🐍</div>
         <div class="skill-name">Python <span style="font-size:0.75rem; color:var(--muted2); font-weight:400;">(Just Getting Started)</span></div>
-        <div class="skill-desc">Exploring Python for data analysis — currently learning the fundamentals of Pandas and NumPy. Early days, but actively building this skill with hands-on practice.</div>
+        <div class="skill-desc">Exploring Python for data analysis. Currently learning the basics of Pandas and NumPy. Early days, but actively building this skill with hands-on practice every week.</div>
         <div class="skill-bar-track"><div class="skill-bar-fill" data-width="25%"></div></div>
         <div class="skill-tags">
           <span class="skill-tag">Beginner</span>
@@ -895,8 +988,8 @@ footer {
       <div class="skill-card reveal d1"
            style="--bar-color: #4fffb0; --hover-border: rgba(79,255,176,0.35); --hover-shadow: rgba(79,255,176,0.08); --bar-width: 88%;">
         <div class="skill-icon">🛡️</div>
-        <div class="skill-name">Fraud & Risk Analysis</div>
-        <div class="skill-desc">Payment discrepancy investigation, anomaly detection, regulatory compliance, and real-time risk mitigation in high-volume financial environments.</div>
+        <div class="skill-name">Risk and Pattern Analysis</div>
+        <div class="skill-desc">Payment discrepancy investigation, anomaly detection, regulatory compliance, and real-time risk identification in high-volume financial environments.</div>
         <div class="skill-bar-track"><div class="skill-bar-fill" data-width="88%"></div></div>
         <div class="skill-tags">
           <span class="skill-tag">Pattern Recognition</span>
@@ -913,7 +1006,7 @@ footer {
 <!-- ═══════════ PORTFOLIO ═══════════ -->
 <section id="portfolio">
   <div class="inner">
-    <p class="section-eyebrow reveal">Work & Projects</p>
+    <p class="section-eyebrow reveal">Work and Projects</p>
     <h2 class="section-title reveal">Portfolio</h2>
 
     <div class="portfolio-grid">
@@ -924,13 +1017,12 @@ footer {
           🔎
         </div>
         <div class="project-body">
-          <div class="project-title">Financial Fraud Pattern Analysis</div>
-          <div class="project-desc">Built on real case experience at Concentrix — an SQL-powered investigation framework designed to surface payment anomalies and flag high-risk transactions. Uses historical fraud signatures to pattern-match against incoming transactions, significantly reducing false positives in real-time fraud queues.</div>
+          <div class="project-title">Payment Anomaly Investigation Framework</div>
+          <div class="project-desc">Built from real case experience at Concentrix, this SQL-powered framework surfaces payment discrepancies and flags high-risk transactions. Uses historical risk signatures to pattern-match against incoming transactions, significantly reducing false positives in real-time review queues.</div>
           <div class="project-tags">
             <span class="ptag">SQL</span>
             <span class="ptag">MySQL</span>
-            <span class="ptag">Fraud Detection</span>
-            <span class="ptag">Risk Mitigation</span>
+            <span class="ptag">Risk Analysis</span>
             <span class="ptag">Pattern Matching</span>
           </div>
         </div>
@@ -961,7 +1053,7 @@ footer {
         </div>
         <div class="project-body">
           <div class="project-title">Customer Sentiment Classifier</div>
-          <div class="project-desc">An Excel-based sentiment classifier processing CSAT feedback and open-text response fields. Maps recurring complaint themes and satisfaction drivers to inform targeted process improvements, training priorities, and agent coaching outcomes.</div>
+          <div class="project-desc">An Excel-based sentiment classifier that processes CSAT feedback and open-text response fields. Maps recurring complaint themes and satisfaction drivers to inform targeted process improvements, training priorities, and agent coaching outcomes.</div>
           <div class="project-tags">
             <span class="ptag">Excel</span>
             <span class="ptag">Pivot Tables</span>
@@ -979,7 +1071,7 @@ footer {
         </div>
         <div class="project-body">
           <div class="project-title">Inventory Cost Reduction Model</div>
-          <div class="project-desc">Inspired by managing $40K+ in monthly inventory at Tim Hortons — a data model to identify wastage trends, forecast demand, and optimize vendor order quantities. Built in Excel with advanced pivot logic and variance reporting to help reduce food waste and overstock.</div>
+          <div class="project-desc">Inspired by managing $40K+ in monthly inventory at Tim Hortons, this data model identifies wastage trends, forecasts demand, and optimizes vendor order quantities. Built in Excel with advanced pivot logic and variance reporting to help reduce food waste and overstock.</div>
           <div class="project-tags">
             <span class="ptag">Excel</span>
             <span class="ptag">Forecasting</span>
@@ -993,11 +1085,173 @@ footer {
   </div>
 </section>
 
+<!-- ═══════════ LEARNING LAB ═══════════ -->
+<section id="learning">
+  <div class="inner">
+    <p class="section-eyebrow reveal">Educational Projects</p>
+    <h2 class="section-title reveal">Learning Lab: My Analyst Journey</h2>
+
+    <div class="learning-intro reveal">
+      <p>
+        These are <strong>hands-on educational projects</strong> I've been working through as I build my data analytics skills from the ground up. Nothing here is polished or client-facing. These are my actual study sessions turned into GitHub repos, where I try things, break things, and figure it out along the way. Each one is focused on a specific tool or concept I'm actively learning right now.
+      </p>
+    </div>
+
+    <div class="learning-grid">
+
+      <!-- PROJECT 1: SQL -->
+      <div class="learn-card reveal" style="--lc-border: rgba(79,255,176,0.3); --lc-shadow: rgba(79,255,176,0.06);">
+        <div class="learn-card-top lc-sql">
+          <div class="learn-badge-row">
+            <span class="learn-edu-badge">Educational</span>
+            <span class="learn-tool-badge">SQL</span>
+          </div>
+          🗄️
+        </div>
+        <div class="learn-body">
+          <div class="learn-title">SQL Basics: Querying a Retail Sales Dataset</div>
+          <div class="learn-desc">
+            My first real SQL project. I grabbed a public retail dataset and started writing queries from scratch, things like finding top-selling products, calculating total revenue by month, and filtering out returned orders. Nothing fancy, but I learned a ton about JOINs and GROUP BY just by playing around with real data rather than textbook examples.
+          </div>
+          <div class="learn-what-i-used">What I used</div>
+          <div class="learn-tags">
+            <span class="ltag">MySQL</span>
+            <span class="ltag">SELECT</span>
+            <span class="ltag">JOINs</span>
+            <span class="ltag">GROUP BY</span>
+            <span class="ltag">WHERE / HAVING</span>
+            <span class="ltag">Aggregate Functions</span>
+          </div>
+        </div>
+        <div class="learn-footer">
+          <a href="sql-retail-sales/index.html" class="learn-link learn-link-view" target="_blank" rel="noopener noreferrer">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+            View Project
+          </a>
+          <a href="https://github.com/shreyaspatel13" class="learn-link learn-link-github" target="_blank" rel="noopener noreferrer">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"/></svg>
+            GitHub
+          </a>
+        </div>
+      </div>
+
+      <!-- PROJECT 2: EXCEL -->
+      <div class="learn-card reveal d1" style="--lc-border: rgba(244,196,105,0.3); --lc-shadow: rgba(244,196,105,0.06);">
+        <div class="learn-card-top lc-excel">
+          <div class="learn-badge-row">
+            <span class="learn-edu-badge">Educational</span>
+            <span class="learn-tool-badge">Excel</span>
+          </div>
+          📊
+        </div>
+        <div class="learn-body">
+          <div class="learn-title">Excel Dashboard: Monthly Sales Tracker</div>
+          <div class="learn-desc">
+            I wanted to see what it actually takes to build a proper dashboard in Excel from scratch, not just a table with some formatting. So I created a monthly sales tracker with Pivot Tables, XLOOKUP, and conditional formatting to highlight performance dips. This taught me how the pieces fit together and how to design something a manager could actually use.
+          </div>
+          <div class="learn-what-i-used">What I used</div>
+          <div class="learn-tags">
+            <span class="ltag">Excel</span>
+            <span class="ltag">Pivot Tables</span>
+            <span class="ltag">XLOOKUP</span>
+            <span class="ltag">Conditional Formatting</span>
+            <span class="ltag">Charts</span>
+            <span class="ltag">Named Ranges</span>
+          </div>
+        </div>
+        <div class="learn-footer">
+          <a href="excel-sales-tracker/index.html" class="learn-link learn-link-view" target="_blank" rel="noopener noreferrer">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+            View Project
+          </a>
+          <a href="https://github.com/shreyaspatel13" class="learn-link learn-link-github" target="_blank" rel="noopener noreferrer">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"/></svg>
+            GitHub
+          </a>
+        </div>
+      </div>
+
+      <!-- PROJECT 3: POWER BI -->
+      <div class="learn-card reveal d2" style="--lc-border: rgba(183,158,255,0.3); --lc-shadow: rgba(183,158,255,0.06);">
+        <div class="learn-card-top lc-pbi">
+          <div class="learn-badge-row">
+            <span class="learn-edu-badge">Educational</span>
+            <span class="learn-tool-badge">Power BI</span>
+          </div>
+          📡
+        </div>
+        <div class="learn-body">
+          <div class="learn-title">Power BI: My First DAX Measures</div>
+          <div class="learn-desc">
+            DAX was the part of Power BI that confused me the most. So I made a project specifically dedicated to learning it. I took a sample HR dataset and built a report around headcount, attrition rate, and average tenure, writing each measure manually and documenting what I got wrong before I got it right. The notes in the GitHub repo are the most honest thing I've ever written.
+          </div>
+          <div class="learn-what-i-used">What I used</div>
+          <div class="learn-tags">
+            <span class="ltag">Power BI Desktop</span>
+            <span class="ltag">DAX</span>
+            <span class="ltag">CALCULATE</span>
+            <span class="ltag">SUMX</span>
+            <span class="ltag">Data Modeling</span>
+            <span class="ltag">Relationships</span>
+          </div>
+        </div>
+        <div class="learn-footer">
+          <a href="powerbi-dax-basics/index.html" class="learn-link learn-link-view" target="_blank" rel="noopener noreferrer">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+            View Project
+          </a>
+          <a href="https://github.com/shreyaspatel13" class="learn-link learn-link-github" target="_blank" rel="noopener noreferrer">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"/></svg>
+            GitHub
+          </a>
+        </div>
+      </div>
+
+      <!-- PROJECT 4: PYTHON -->
+      <div class="learn-card reveal d3" style="--lc-border: rgba(99,202,255,0.3); --lc-shadow: rgba(99,202,255,0.06);">
+        <div class="learn-card-top lc-py">
+          <div class="learn-badge-row">
+            <span class="learn-edu-badge">Educational</span>
+            <span class="learn-tool-badge">Python</span>
+          </div>
+          🐍
+        </div>
+        <div class="learn-body">
+          <div class="learn-title">Python Basics: My First Data Exploration</div>
+          <div class="learn-desc">
+            I'm very much a beginner with Python, and this project shows that honestly. I loaded a CSV file using Pandas, checked for missing values, printed some basic stats, and made a simple bar chart. That's it. But doing this myself, step by step, is how I'm actually learning, not by watching tutorials but by doing and breaking things and reading the error messages.
+          </div>
+          <div class="learn-what-i-used">What I used</div>
+          <div class="learn-tags">
+            <span class="ltag">Python</span>
+            <span class="ltag">Pandas</span>
+            <span class="ltag">Matplotlib</span>
+            <span class="ltag">read_csv()</span>
+            <span class="ltag">describe()</span>
+            <span class="ltag">Beginner Level</span>
+          </div>
+        </div>
+        <div class="learn-footer">
+          <a href="python-first-steps/index.html" class="learn-link learn-link-view" target="_blank" rel="noopener noreferrer">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+            View Project
+          </a>
+          <a href="https://github.com/shreyaspatel13" class="learn-link learn-link-github" target="_blank" rel="noopener noreferrer">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"/></svg>
+            GitHub
+          </a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
 <!-- ═══════════ EDUCATION ═══════════ -->
 <section id="education">
   <div class="inner">
     <p class="section-eyebrow reveal">Academic Background</p>
-    <h2 class="section-title reveal">Education & Certifications</h2>
+    <h2 class="section-title reveal">Education and Certifications</h2>
 
     <div class="edu-grid">
       <div class="edu-card reveal">
@@ -1036,7 +1290,7 @@ footer {
         Let's build something<br><em>with data.</em>
       </h2>
       <p class="contact-sub reveal d1">
-        I'm actively looking for data analyst roles where analytical rigor meets real operational impact. If you're building a team that values sharp data thinking and domain expertise — let's talk.
+        I'm actively looking for data analyst roles where analytical thinking meets real operational impact. If you're building a team that values sharp data thinking and domain expertise, let's talk.
       </p>
 
       <div class="contact-cards reveal d2">
@@ -1076,7 +1330,6 @@ const revealObserver = new IntersectionObserver((entries) => {
   entries.forEach(entry => {
     if (entry.isIntersecting) {
       entry.target.classList.add('in');
-      // Animate skill bars when they come into view
       entry.target.querySelectorAll('.skill-bar-fill').forEach(bar => {
         bar.classList.add('animated');
       });
@@ -1086,12 +1339,10 @@ const revealObserver = new IntersectionObserver((entries) => {
 
 document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
 
-// Set bar widths from data attributes
 document.querySelectorAll('.skill-bar-fill').forEach(bar => {
   bar.style.setProperty('--bar-width', bar.dataset.width || '80%');
 });
 
-// Also observe skill cards for bar animation
 const barObserver = new IntersectionObserver((entries) => {
   entries.forEach(entry => {
     if (entry.isIntersecting) {
