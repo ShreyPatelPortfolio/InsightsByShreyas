@@ -1,32 +1,598 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Power BI Practice | Shreyas Patel</title>
-<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Power BI: Support Operations Dashboard — Shreyas Patel</title>
+<meta name="description" content="Learning Lab: Power BI Dashboard with DAX measures, KPI cards, and slicers. By Shreyas Patel." />
+
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,700;0,800;0,900;1,700;1,800&display=swap" rel="stylesheet" />
+
 <style>
-  body { background: #07090f; color: #dde4ee; font-family: 'Outfit', sans-serif; line-height: 1.6; padding: 2rem; max-width: 800px; margin: auto; }
-  a { color: #4fffb0; text-decoration: none; font-weight: 600; display: inline-block; margin-bottom: 2rem; }
-  h1 { color: #fff; margin-bottom: 0.5rem; }
-  p { color: #8696b0; margin-bottom: 2rem; }
-  pre { background: #0d1117; padding: 1.5rem; border-radius: 10px; border: 1px solid rgba(183,158,255,0.3); overflow-x: auto; color: #b79eff; font-size: 0.95rem;}
+:root {
+  --bg:         #07090f;
+  --bg2:        #0d1117;
+  --surface:    rgba(255,255,255,0.035);
+  --surface2:   rgba(255,255,255,0.065);
+  --border:     rgba(255,255,255,0.07);
+  --border2:    rgba(255,255,255,0.13);
+
+  /* Power BI Theme: warm orange */
+  --accent:     #f2a365;
+  --accent-dim: rgba(242,163,101,0.12);
+  --accent-glow:rgba(242,163,101,0.25);
+
+  --text:       #dde4ee;
+  --muted:      #5c6a82;
+  --muted2:     #8696b0;
+  --font-head:  'Playfair Display', Georgia, serif;
+  --font-body:  'Outfit', system-ui, sans-serif;
+  --radius:     18px;
+  --radius-sm:  10px;
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  background: var(--bg); color: var(--text);
+  font-family: var(--font-body); font-size: 16px; line-height: 1.65; overflow-x: hidden;
+}
+body::after {
+  content: ''; position: fixed; inset: 0; z-index: 0; pointer-events: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='400'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='400' height='400' filter='url(%23n)' opacity='0.035'/%3E%3C/svg%3E");
+  background-size: 200px;
+}
+.ambient { position: fixed; inset: 0; z-index: -1; overflow: hidden; pointer-events: none; }
+.ambient-blob { position: absolute; border-radius: 50%; filter: blur(130px); opacity: 0.10; }
+.amb-1 { width:600px;height:600px; background:#f2a365; top:-150px; right:-100px; }
+.amb-2 { width:500px;height:500px; background:#b79eff; bottom:-100px; left:-100px; }
+
+/* ── NAV ── */
+nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 200; height: 68px;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 0 clamp(1.5rem, 5vw, 3rem);
+  background: rgba(7,9,15,0.85); backdrop-filter: blur(28px) saturate(1.6);
+  border-bottom: 1px solid var(--border);
+}
+.nav-logo { font-family: var(--font-head); font-weight: 800; font-size: 1.1rem; color: var(--text); text-decoration: none; }
+.nav-logo span { color: #4fffb0; }
+.nav-back {
+  display: inline-flex; align-items: center; gap: 8px;
+  font-size: 0.82rem; font-weight: 600; color: var(--muted2); text-decoration: none;
+  border: 1px solid var(--border2); border-radius: 100px; padding: 8px 18px;
+  transition: color 0.25s, border-color 0.25s;
+}
+.nav-back:hover { color: var(--accent); border-color: rgba(242,163,101,0.3); }
+
+/* ── LAYOUT ── */
+main { max-width: 860px; margin: 0 auto; padding: 110px clamp(1.5rem, 5vw, 2rem) 80px; position: relative; z-index: 1; }
+
+/* ── BREADCRUMB ── */
+.breadcrumb { display: flex; align-items: center; gap: 8px; font-size: 0.78rem; color: var(--muted); margin-bottom: 2.5rem; }
+.breadcrumb a { color: var(--muted2); text-decoration: none; transition: color 0.2s; }
+.breadcrumb a:hover { color: var(--accent); }
+.breadcrumb-sep { color: var(--muted); }
+
+/* ── HEADER ── */
+.proj-eyebrow {
+  display: inline-flex; align-items: center; gap: 10px;
+  font-size: 0.72rem; font-weight: 600; letter-spacing: 0.14em;
+  text-transform: uppercase; color: var(--accent); margin-bottom: 1rem;
+}
+.proj-eyebrow::before { content: ''; display: block; width: 28px; height: 1px; background: var(--accent); }
+.proj-title {
+  font-family: var(--font-head);
+  font-size: clamp(2rem, 5vw, 3rem);
+  font-weight: 900; line-height: 1.1; letter-spacing: -0.02em; margin-bottom: 1.25rem;
+}
+.proj-desc { font-size: 1.05rem; color: var(--muted2); line-height: 1.8; font-weight: 300; max-width: 680px; margin-bottom: 2rem; }
+
+.tag-row { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 3rem; }
+.tag {
+  font-size: 0.72rem; font-weight: 600; letter-spacing: 0.06em;
+  padding: 5px 14px; border-radius: 100px;
+  background: var(--accent-dim); border: 1px solid rgba(242,163,101,0.25); color: var(--accent);
+}
+
+/* ── DIVIDER ── */
+.divider { border: none; border-top: 1px solid var(--border); margin: 3rem 0; }
+
+/* ── SECTION LABEL ── */
+.section-label {
+  font-size: 0.72rem; font-weight: 700; letter-spacing: 0.16em;
+  text-transform: uppercase; color: var(--muted); margin-bottom: 1.25rem;
+}
+
+/* ── CONTEXT BOX ── */
+.context-box {
+  background: var(--surface); border: 1px solid var(--border);
+  border-left: 3px solid var(--accent);
+  border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+  padding: 1.5rem 1.75rem; margin-bottom: 2.5rem;
+  font-size: 0.95rem; color: var(--muted2); line-height: 1.8;
+}
+.context-box strong { color: var(--text); }
+
+/* ── CODE / DAX BLOCKS ── */
+.code-block {
+  background: #0a0e18; border: 1px solid var(--border2);
+  border-radius: var(--radius-sm); margin: 2rem 0; overflow: hidden;
+}
+.code-header {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 0.75rem 1.25rem;
+  background: rgba(255,255,255,0.03); border-bottom: 1px solid var(--border);
+}
+.code-lang { font-size: 0.7rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--accent); }
+.code-label { font-size: 0.75rem; color: var(--muted); }
+.code-block pre {
+  padding: 1.5rem 1.25rem; overflow-x: auto;
+  font-family: 'Fira Code', 'Cascadia Code', 'Consolas', monospace;
+  font-size: 0.875rem; line-height: 1.7; color: #c9d1e0;
+}
+.kw  { color: #b79eff; }
+.fn  { color: #f2a365; }
+.str { color: #f4c469; }
+.cm  { color: #4a5568; font-style: italic; }
+.num { color: #63caff; }
+.op  { color: #dde4ee; }
+code { font-family: 'Fira Code', 'Cascadia Code', 'Consolas', monospace; font-size: 0.88em; color: var(--accent); background: var(--accent-dim); padding: 2px 7px; border-radius: 5px; }
+
+/* ── FORMULA BLOCK (DAX style, same as Excel page) ── */
+.formula-block {
+  background: #0a0e18; border: 1px solid var(--border2);
+  border-radius: var(--radius-sm); margin: 2rem 0; overflow: hidden;
+}
+.formula-header {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 0.75rem 1.25rem; background: rgba(255,255,255,0.03);
+  border-bottom: 1px solid var(--border);
+}
+.formula-lang { font-size: 0.7rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--accent); }
+.formula-label { font-size: 0.75rem; color: var(--muted); }
+.formula-body { padding: 1.5rem 1.25rem; }
+.formula-row { margin-bottom: 1.75rem; }
+.formula-row:last-child { margin-bottom: 0; }
+.formula-name { font-size: 0.75rem; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted2); margin-bottom: 0.5rem; }
+.formula-code {
+  font-family: 'Fira Code', 'Cascadia Code', 'Consolas', monospace;
+  font-size: 0.875rem; color: #c9d1e0; background: rgba(255,255,255,0.03);
+  border: 1px solid var(--border); border-radius: 8px;
+  padding: 0.85rem 1.1rem; margin-bottom: 0.6rem; line-height: 1.65; overflow-x: auto;
+}
+.formula-note { font-size: 0.82rem; color: var(--muted2); line-height: 1.65; }
+.ref  { color: #4fffb0; }
+
+/* ── MOCK DASHBOARD ── */
+.dashboard-mock {
+  background: #0d1117; border: 1px solid var(--border2);
+  border-radius: var(--radius); overflow: hidden; margin: 2rem 0;
+}
+.db-topbar {
+  background: rgba(242,163,101,0.08); border-bottom: 1px solid var(--border);
+  padding: 10px 18px; display: flex; align-items: center; gap: 10px;
+}
+.db-topbar-dot { width:8px;height:8px;border-radius:50%; }
+.db-topbar-title { font-size: 0.75rem; font-weight: 600; color: var(--muted2); margin-left: 6px; letter-spacing: 0.06em; }
+.db-body { padding: 1.5rem; }
+
+/* KPI Cards row */
+.kpi-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin-bottom: 1.25rem; }
+.kpi-card {
+  background: rgba(255,255,255,0.03); border: 1px solid var(--border);
+  border-radius: 10px; padding: 14px 16px;
+}
+.kpi-label { font-size: 0.65rem; font-weight: 600; letter-spacing: 0.09em; text-transform: uppercase; color: var(--muted); margin-bottom: 6px; }
+.kpi-value { font-family: var(--font-head); font-size: 1.6rem; font-weight: 900; letter-spacing: -0.02em; line-height: 1; }
+.kpi-delta { font-size: 0.68rem; font-weight: 600; margin-top: 5px; }
+.kpi-up   { color: #4fffb0; } .kpi-down { color: #ff6b6b; } .kpi-neu { color: var(--muted2); }
+.kpi-c1 { color: #f2a365; } .kpi-c2 { color: #4fffb0; } .kpi-c3 { color: #b79eff; } .kpi-c4 { color: #63caff; }
+
+/* Chart area */
+.db-charts { display: grid; grid-template-columns: 3fr 2fr; gap: 10px; }
+.db-chart-box {
+  background: rgba(255,255,255,0.02); border: 1px solid var(--border);
+  border-radius: 10px; padding: 14px 16px;
+}
+.db-chart-title { font-size: 0.68rem; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); margin-bottom: 12px; }
+
+/* Bar chart visual */
+.mini-bars { display: flex; align-items: flex-end; gap: 7px; height: 80px; }
+.mini-bar { flex: 1; border-radius: 4px 4px 0 0; min-width: 0; }
+.mb-jan { height:55%;background:rgba(242,163,101,0.35); }
+.mb-feb { height:62%;background:rgba(242,163,101,0.45); }
+.mb-mar { height:78%;background:rgba(242,163,101,0.55); }
+.mb-apr { height:70%;background:rgba(242,163,101,0.50); }
+.mb-may { height:88%;background:rgba(242,163,101,0.65); }
+.mb-jun { height:95%;background:#f2a365; }
+.mb-labels { display:flex; justify-content:space-between; margin-top:6px; }
+.mb-label { font-size:0.6rem; color:var(--muted); flex:1; text-align:center; }
+
+/* Donut chart visual */
+.donut-wrap { display:flex; flex-direction:column; align-items:center; justify-content:center; height:100%; gap:12px; }
+.donut-svg-wrap { position:relative; width:90px; height:90px; }
+.donut-center-text { position:absolute; inset:0; display:flex; flex-direction:column; align-items:center; justify-content:center; }
+.donut-center-num { font-family:var(--font-head); font-size:1.1rem; font-weight:900; color:var(--text); line-height:1; }
+.donut-center-sub { font-size:0.55rem; color:var(--muted); }
+.donut-legend { display:flex; flex-direction:column; gap:5px; width:100%; }
+.legend-row { display:flex; align-items:center; gap:7px; font-size:0.68rem; color:var(--muted2); }
+.legend-dot { width:8px;height:8px;border-radius:50%;flex-shrink:0; }
+
+/* Slicer visual */
+.slicer-bar {
+  background: rgba(255,255,255,0.02); border: 1px solid var(--border);
+  border-radius: 10px; padding: 12px 16px; margin-bottom: 10px;
+  display: flex; align-items: center; gap: 8px; flex-wrap: wrap;
+}
+.slicer-label { font-size: 0.65rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.09em; color: var(--muted); margin-right: 4px; }
+.slicer-chip {
+  font-size: 0.68rem; font-weight: 600; padding: 3px 11px; border-radius: 100px;
+  border: 1px solid var(--border2); color: var(--muted2); cursor: default;
+}
+.slicer-chip.active { background: var(--accent-dim); border-color: rgba(242,163,101,0.35); color: var(--accent); }
+
+/* ── RESULT TABLE ── */
+.result-table-wrap {
+  background: #0a0e18; border: 1px solid var(--border2);
+  border-radius: var(--radius-sm); overflow: hidden; margin: 2rem 0;
+}
+.result-table-header {
+  padding: 0.75rem 1.25rem;
+  background: rgba(255,255,255,0.03); border-bottom: 1px solid var(--border);
+  font-size: 0.78rem; font-weight: 600; color: var(--muted2);
+}
+.result-table-wrap table { width: 100%; border-collapse: collapse; }
+.result-table-wrap th {
+  padding: 0.6rem 1.25rem; text-align: left;
+  font-size: 0.68rem; font-weight: 600; letter-spacing: 0.08em;
+  text-transform: uppercase; color: var(--accent);
+  border-bottom: 1px solid var(--border2);
+}
+.result-table-wrap td { padding: 0.65rem 1.25rem; font-size: 0.875rem; color: var(--muted2); border-bottom: 1px solid var(--border); }
+.result-table-wrap tr:last-child td { border-bottom: none; }
+.result-table-wrap tr:hover td { background: rgba(255,255,255,0.015); color: var(--text); }
+.badge-green { color:#4fffb0; font-weight:700; font-size:0.72rem; background:rgba(79,255,176,0.1); padding:2px 9px; border-radius:100px; }
+.badge-red   { color:#ff6b6b; font-weight:700; font-size:0.72rem; background:rgba(255,107,107,0.1); padding:2px 9px; border-radius:100px; }
+.badge-org   { color:#f2a365; font-weight:700; font-size:0.72rem; background:rgba(242,163,101,0.1); padding:2px 9px; border-radius:100px; }
+
+/* ── LESSONS GRID ── */
+.lessons-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-top: 1.5rem; }
+.lesson-card {
+  background: var(--surface); border: 1px solid var(--border);
+  border-radius: var(--radius-sm); padding: 1.25rem 1.5rem;
+  transition: border-color 0.25s, transform 0.25s;
+}
+.lesson-card:hover { border-color: rgba(242,163,101,0.3); transform: translateY(-3px); }
+.lesson-card-icon { font-size: 1.4rem; margin-bottom: 0.75rem; }
+.lesson-card-title { font-weight: 700; font-size: 0.9rem; color: var(--text); margin-bottom: 0.4rem; }
+.lesson-card-text { font-size: 0.83rem; color: var(--muted2); line-height: 1.65; }
+
+/* ── FOOTER NAV ── */
+.proj-footer-nav {
+  display: flex; flex-wrap: wrap; gap: 1rem; align-items: center;
+  padding: 2.5rem 0 0; border-top: 1px solid var(--border); margin-top: 3rem;
+}
+.proj-footer-btn {
+  display: inline-flex; align-items: center; gap: 8px;
+  font-size: 0.85rem; font-weight: 600; padding: 11px 22px;
+  border-radius: 100px; text-decoration: none; transition: all 0.25s;
+}
+.btn-accent { background: var(--accent-dim); border: 1px solid rgba(242,163,101,0.3); color: var(--accent); }
+.btn-accent:hover { background: rgba(242,163,101,0.2); box-shadow: 0 6px 24px var(--accent-glow); transform: translateY(-2px); }
+.btn-ghost-sm { border: 1px solid var(--border2); color: var(--muted2); }
+.btn-ghost-sm:hover { border-color: rgba(242,163,101,0.3); color: var(--accent); transform: translateY(-2px); }
+
+footer-bar {
+  display: block; text-align: center;
+  padding: 1.5rem; font-size: 0.8rem; color: var(--muted);
+  border-top: 1px solid var(--border); position: relative; z-index: 1;
+}
+
+@media(max-width:640px) {
+  .kpi-row { grid-template-columns: 1fr 1fr; }
+  .db-charts { grid-template-columns: 1fr; }
+  .lessons-grid { grid-template-columns: 1fr; }
+}
 </style>
 </head>
 <body>
-  <a href="index.html">← Back to Portfolio</a>
-  <h1>Power BI: Beginner DAX Measures</h1>
-  <p>Before jumping into visualizations, I wanted to understand how DAX calculates numbers. Here are the basic measures I wrote to track overall performance in a mock dataset.</p>
-  
-  <pre>
-// Measure 1: Calculate Total Revenue
-Total Revenue = SUM('Sales'[Revenue])
 
-// Measure 2: Count Unique Customers to see foot traffic
-Unique Customers = DISTINCTCOUNT('Sales'[CustomerID])
+<div class="ambient">
+  <div class="ambient-blob amb-1"></div>
+  <div class="ambient-blob amb-2"></div>
+</div>
 
-// Measure 3: Find the Average Order Value
-Average Order Value = DIVIDE([Total Revenue], [Unique Customers], 0)
-  </pre>
+<nav>
+  <a href="../index.html" class="nav-logo">Insights<span>.</span></a>
+  <a href="../index.html#learning" class="nav-back">
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="15 18 9 12 15 6"/></svg>
+    Back to Learning Lab
+  </a>
+</nav>
+
+<main>
+
+  <div class="breadcrumb">
+    <a href="../index.html">Home</a>
+    <span class="breadcrumb-sep">/</span>
+    <a href="../index.html#learning">Learning Lab</a>
+    <span class="breadcrumb-sep">/</span>
+    <span>Power BI Dashboard</span>
+  </div>
+
+  <p class="proj-eyebrow">Learning Lab — Power BI</p>
+  <h1 class="proj-title">Support Operations<br>Dashboard in Power BI</h1>
+  <p class="proj-desc">My first real Power BI project. I built a dashboard that tracks daily case volume, SLA compliance, and CSAT scores for a fictional support team. The data is made up, but the metrics are pulled straight from what I track every day at Concentrix.</p>
+
+  <div class="tag-row">
+    <span class="tag">Power BI Desktop</span>
+    <span class="tag">DAX</span>
+    <span class="tag">KPI Cards</span>
+    <span class="tag">Slicers</span>
+    <span class="tag">Data Modeling</span>
+  </div>
+
+  <div class="context-box">
+    <strong>Why this project?</strong> I wanted to take the numbers I already knew from my job and build something a manager could actually open and get answers from in under a minute. KPI cards, trend lines, a slicer for date range. Simple, but real. Learning DAX was harder than I expected — it looks like Excel formulas but behaves very differently.
+  </div>
+
+  <hr class="divider" />
+
+  <p class="section-label">Dashboard Preview</p>
+  <p style="color:var(--muted2); font-size:0.9rem; margin-bottom:1rem;">This is a visual mock of what the Power BI report looks like. The actual <code>.pbix</code> file is on GitHub.</p>
+
+  <!-- MOCK DASHBOARD -->
+  <div class="dashboard-mock">
+    <div class="db-topbar">
+      <div class="db-topbar-dot" style="background:#ff5f57;"></div>
+      <div class="db-topbar-dot" style="background:#febc2e;"></div>
+      <div class="db-topbar-dot" style="background:#28c840;"></div>
+      <span class="db-topbar-title">Support Operations Dashboard — Shreyas Patel.pbix</span>
+    </div>
+    <div class="db-body">
+
+      <!-- Slicer -->
+      <div class="slicer-bar">
+        <span class="slicer-label">Filter by Month:</span>
+        <span class="slicer-chip">Jan</span>
+        <span class="slicer-chip">Feb</span>
+        <span class="slicer-chip">Mar</span>
+        <span class="slicer-chip">Apr</span>
+        <span class="slicer-chip">May</span>
+        <span class="slicer-chip active">Jun</span>
+        <span class="slicer-chip">All</span>
+      </div>
+
+      <!-- KPI Cards -->
+      <div class="kpi-row">
+        <div class="kpi-card">
+          <div class="kpi-label">Total Cases</div>
+          <div class="kpi-value kpi-c1">624</div>
+          <div class="kpi-delta kpi-up">+4.2% vs last month</div>
+        </div>
+        <div class="kpi-card">
+          <div class="kpi-label">CSAT Score</div>
+          <div class="kpi-value kpi-c2">95.1%</div>
+          <div class="kpi-delta kpi-up">+0.6% vs last month</div>
+        </div>
+        <div class="kpi-card">
+          <div class="kpi-label">SLA Compliance</div>
+          <div class="kpi-value kpi-c3">97.4%</div>
+          <div class="kpi-delta kpi-neu">No change</div>
+        </div>
+        <div class="kpi-card">
+          <div class="kpi-label">Avg Handle Time</div>
+          <div class="kpi-value kpi-c4">14.2m</div>
+          <div class="kpi-delta kpi-down">+1.1m vs last month</div>
+        </div>
+      </div>
+
+      <!-- Charts -->
+      <div class="db-charts">
+        <div class="db-chart-box">
+          <div class="db-chart-title">Monthly Case Volume</div>
+          <div class="mini-bars">
+            <div class="mini-bar mb-jan"></div>
+            <div class="mini-bar mb-feb"></div>
+            <div class="mini-bar mb-mar"></div>
+            <div class="mini-bar mb-apr"></div>
+            <div class="mini-bar mb-may"></div>
+            <div class="mini-bar mb-jun"></div>
+          </div>
+          <div class="mb-labels">
+            <span class="mb-label">Jan</span><span class="mb-label">Feb</span>
+            <span class="mb-label">Mar</span><span class="mb-label">Apr</span>
+            <span class="mb-label">May</span><span class="mb-label">Jun</span>
+          </div>
+        </div>
+        <div class="db-chart-box">
+          <div class="db-chart-title">Case Type Breakdown</div>
+          <div class="donut-wrap">
+            <div class="donut-svg-wrap">
+              <svg viewBox="0 0 36 36" width="90" height="90">
+                <circle cx="18" cy="18" r="15.9" fill="none" stroke="#1a1f2e" stroke-width="4"/>
+                <circle cx="18" cy="18" r="15.9" fill="none" stroke="#f2a365" stroke-width="4" stroke-dasharray="42 58" stroke-dashoffset="25"/>
+                <circle cx="18" cy="18" r="15.9" fill="none" stroke="#b79eff" stroke-width="4" stroke-dasharray="28 72" stroke-dashoffset="-17"/>
+                <circle cx="18" cy="18" r="15.9" fill="none" stroke="#4fffb0" stroke-width="4" stroke-dasharray="18 82" stroke-dashoffset="-45"/>
+                <circle cx="18" cy="18" r="15.9" fill="none" stroke="#63caff" stroke-width="4" stroke-dasharray="12 88" stroke-dashoffset="-63"/>
+              </svg>
+              <div class="donut-center-text">
+                <div class="donut-center-num">624</div>
+                <div class="donut-center-sub">total</div>
+              </div>
+            </div>
+            <div class="donut-legend">
+              <div class="legend-row"><div class="legend-dot" style="background:#f2a365;"></div>Payment Issues — 42%</div>
+              <div class="legend-row"><div class="legend-dot" style="background:#b79eff;"></div>Tech Support — 28%</div>
+              <div class="legend-row"><div class="legend-dot" style="background:#4fffb0;"></div>Fraud Cases — 18%</div>
+              <div class="legend-row"><div class="legend-dot" style="background:#63caff;"></div>Account Access — 12%</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <hr class="divider" />
+
+  <p class="section-label">Step 1 — Data Model</p>
+  <p style="color:var(--muted2); font-size:0.9rem; margin-bottom:1rem;">The report uses two tables: <code>Cases</code> and a <code>Date</code> table. The Date table is essential in Power BI — without it, time intelligence functions like <code>DATEADD</code> and <code>SAMEPERIODLASTYEAR</code> will not work properly. This was the first thing that tripped me up.</p>
+
+  <div class="code-block">
+    <div class="code-header">
+      <span class="code-lang">DAX</span>
+      <span class="code-label">Date Table (calculated)</span>
+    </div>
+    <pre><span class="cm">-- Create a Date table so time intelligence works correctly</span>
+<span class="cm">-- Go to: Modeling > New Table, then paste this</span>
+
+<span class="fn">DateTable</span> <span class="op">=</span>
+<span class="fn">CALENDAR</span>(
+    <span class="fn">DATE</span>(<span class="num">2024</span>, <span class="num">1</span>, <span class="num">1</span>),
+    <span class="fn">DATE</span>(<span class="num">2024</span>, <span class="num">12</span>, <span class="num">31</span>)
+)
+
+<span class="cm">-- Then add these calculated columns to the DateTable:</span>
+
+Year   <span class="op">=</span> <span class="fn">YEAR</span>([Date])
+Month  <span class="op">=</span> <span class="fn">MONTH</span>([Date])
+MonthName <span class="op">=</span> <span class="fn">FORMAT</span>([Date], <span class="str">"MMMM"</span>)
+Quarter <span class="op">=</span> <span class="str">"Q"</span> <span class="op">&amp;</span> <span class="fn">QUARTER</span>([Date])</pre>
+  </div>
+
+  <hr class="divider" />
+
+  <p class="section-label">Step 2 — Core DAX Measures</p>
+  <p style="color:var(--muted2); font-size:0.9rem; margin-bottom:1rem;">DAX is the formula language inside Power BI. These are the four main measures I built. I created them all inside a dedicated <em>Measures</em> table to keep things organized.</p>
+
+  <div class="formula-block">
+    <div class="formula-header">
+      <span class="formula-lang">DAX Measures</span>
+      <span class="formula-label">Measures Table</span>
+    </div>
+    <div class="formula-body">
+
+      <div class="formula-row">
+        <div class="formula-name">Total Cases — count of all rows in the Cases table</div>
+        <div class="formula-code"><span class="fn">Total Cases</span> <span class="op">=</span> <span class="fn">COUNTROWS</span>(<span class="ref">Cases</span>)</div>
+        <div class="formula-note">Simple starting point. COUNTROWS counts every row in the table, regardless of any filter. Once you connect a slicer, Power BI automatically filters this for you.</div>
+      </div>
+
+      <div class="formula-row">
+        <div class="formula-name">CSAT Score — average satisfaction rating, formatted as %</div>
+        <div class="formula-code"><span class="fn">CSAT Score</span> <span class="op">=</span>
+    <span class="fn">DIVIDE</span>(
+        <span class="fn">CALCULATE</span>(<span class="fn">COUNTROWS</span>(<span class="ref">Cases</span>), <span class="ref">Cases</span>[csat_rating] >= <span class="num">4</span>),
+        <span class="fn">COUNTROWS</span>(<span class="ref">Cases</span>),
+        <span class="num">0</span>
+    )</div>
+        <div class="formula-note">DIVIDE is safer than using "/" because it handles division by zero automatically. Cases with a rating of 4 or 5 out of 5 count as satisfied. The third argument (0) is what shows if there is no data.</div>
+      </div>
+
+      <div class="formula-row">
+        <div class="formula-name">SLA Compliance — % of cases resolved within the required time</div>
+        <div class="formula-code"><span class="fn">SLA Compliance</span> <span class="op">=</span>
+    <span class="fn">DIVIDE</span>(
+        <span class="fn">CALCULATE</span>(<span class="fn">COUNTROWS</span>(<span class="ref">Cases</span>), <span class="ref">Cases</span>[met_sla] <span class="op">=</span> <span class="str">"Yes"</span>),
+        <span class="fn">COUNTROWS</span>(<span class="ref">Cases</span>),
+        <span class="num">0</span>
+    )</div>
+        <div class="formula-note">CALCULATE with a filter is the core of DAX. It recalculates COUNTROWS but only for rows where met_sla equals "Yes". Everything else works the same way.</div>
+      </div>
+
+      <div class="formula-row">
+        <div class="formula-name">MoM Case Change — how case volume shifted versus last month</div>
+        <div class="formula-code"><span class="fn">Cases Last Month</span> <span class="op">=</span>
+    <span class="fn">CALCULATE</span>(
+        <span class="fn">COUNTROWS</span>(<span class="ref">Cases</span>),
+        <span class="fn">DATEADD</span>(<span class="ref">DateTable</span>[Date], <span class="op">-</span><span class="num">1</span>, <span class="fn">MONTH</span>)
+    )
+
+<span class="fn">MoM Change %</span> <span class="op">=</span>
+    <span class="fn">DIVIDE</span>(
+        [<span class="ref">Total Cases</span>] <span class="op">-</span> [<span class="ref">Cases Last Month</span>],
+        [<span class="ref">Cases Last Month</span>],
+        <span class="num">0</span>
+    )</div>
+        <div class="formula-note">DATEADD shifts the filter context back by one month. This is why the Date table is so important — without it, DATEADD simply does not work. I learned this the frustrating way.</div>
+      </div>
+
+    </div>
+  </div>
+
+  <hr class="divider" />
+
+  <p class="section-label">Step 3 — Sample Output Data</p>
+  <p style="color:var(--muted2); font-size:0.9rem; margin-bottom:1rem;">This is what the Cases table looks like. Each row is one support case. I generated 624 rows of test data using a simple pattern in Excel, then imported it into Power BI via <em>Get Data > Excel Workbook</em>.</p>
+
+  <div class="result-table-wrap">
+    <div class="result-table-header">📋 Cases Table — Sample Rows</div>
+    <table>
+      <thead>
+        <tr>
+          <th>case_id</th>
+          <th>case_date</th>
+          <th>case_type</th>
+          <th>handle_time_min</th>
+          <th>csat_rating</th>
+          <th>met_sla</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td>C-1001</td><td>2024-06-01</td><td>Payment Issue</td><td>12</td><td>5</td><td><span class="badge-green">Yes</span></td></tr>
+        <tr><td>C-1002</td><td>2024-06-01</td><td>Fraud Case</td><td>22</td><td>4</td><td><span class="badge-green">Yes</span></td></tr>
+        <tr><td>C-1003</td><td>2024-06-02</td><td>Tech Support</td><td>31</td><td>2</td><td><span class="badge-red">No</span></td></tr>
+        <tr><td>C-1004</td><td>2024-06-02</td><td>Account Access</td><td>8</td><td>5</td><td><span class="badge-green">Yes</span></td></tr>
+        <tr><td>C-1005</td><td>2024-06-03</td><td>Payment Issue</td><td>17</td><td>3</td><td><span class="badge-org">Yes</span></td></tr>
+        <tr><td>C-1006</td><td>2024-06-03</td><td>Fraud Case</td><td>28</td><td>4</td><td><span class="badge-green">Yes</span></td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <hr class="divider" />
+
+  <p class="section-label">What I Learned</p>
+
+  <div class="lessons-grid">
+    <div class="lesson-card">
+      <div class="lesson-card-icon">📅</div>
+      <div class="lesson-card-title">Always build a Date table first</div>
+      <div class="lesson-card-text">I spent two hours wondering why DATEADD was not working. The answer was always the same — no proper Date table. Now it is the first thing I create in any Power BI file.</div>
+    </div>
+    <div class="lesson-card">
+      <div class="lesson-card-icon">⚙️</div>
+      <div class="lesson-card-title">CALCULATE is the heart of DAX</div>
+      <div class="lesson-card-text">Almost every useful measure uses CALCULATE. It changes the filter context, which is what makes DAX so powerful. Understanding filter context was the biggest learning moment in this project.</div>
+    </div>
+    <div class="lesson-card">
+      <div class="lesson-card-icon">➗</div>
+      <div class="lesson-card-title">Always use DIVIDE, not "/"</div>
+      <div class="lesson-card-text">Using "/" crashes the visual if the denominator is zero. DIVIDE handles it cleanly and lets you set a fallback value. Small habit, saves a lot of broken KPI cards.</div>
+    </div>
+    <div class="lesson-card">
+      <div class="lesson-card-icon">🎛️</div>
+      <div class="lesson-card-title">Slicers make dashboards interactive</div>
+      <div class="lesson-card-text">Connecting slicers to visuals was the moment this stopped feeling like a static table and started feeling like an actual dashboard. Filtering by month, by case type — it all updates instantly.</div>
+    </div>
+  </div>
+
+  <div class="proj-footer-nav">
+    <a href="https://github.com/ShreyPatelPortfolio/InsightsByShreyas" target="_blank" rel="noopener noreferrer" class="proj-footer-btn btn-accent">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"/></svg>
+      View on GitHub
+    </a>
+    <a href="../index.html#learning" class="proj-footer-btn btn-ghost-sm">
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="15 18 9 12 15 6"/></svg>
+      Back to Learning Lab
+    </a>
+  </div>
+
+</main>
+
+<footer-bar>© 2026 Shreyas Patel · Learning Lab</footer-bar>
+
 </body>
 </html>
