@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SQL Practice | Shreyas Patel</title>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  body { background: #07090f; color: #dde4ee; font-family: 'Outfit', sans-serif; line-height: 1.6; padding: 2rem; max-width: 800px; margin: auto; }
+  a { color: #4fffb0; text-decoration: none; font-weight: 600; display: inline-block; margin-bottom: 2rem; }
+  h1 { color: #fff; margin-bottom: 0.5rem; }
+  p { color: #8696b0; margin-bottom: 2rem; }
+  pre { background: #0d1117; padding: 1.5rem; border-radius: 10px; border: 1px solid rgba(255,255,255,0.1); overflow-x: auto; color: #b79eff; font-size: 0.95rem;}
+</style>
+</head>
+<body>
+  <a href="index.html">← Back to Portfolio</a>
+  <h1>SQL Basics: Querying Retail Sales</h1>
+  <p>Here is a snippet from my first SQL practice session. I wanted to see how to group data and find total sales per region using a basic SELECT and GROUP BY statement.</p>
+  
+  <pre>
+-- Select the region and calculate the total sales volume
+SELECT 
+    Region,
+    COUNT(OrderID) AS Total_Orders,
+    SUM(Sales_Amount) AS Total_Revenue
+FROM 
+    retail_sales_data
+WHERE 
+    Status = 'Completed'
+GROUP BY 
+    Region
+ORDER BY 
+    Total_Revenue DESC;
+  </pre>
+</body>
+</html>
